@@ -1,0 +1,21 @@
+# Arquivos privados do projeto
+PRODUCT.md
+fef8e564-ba75-4e07-a618-7cc3949adb66.png
+
+# Material de origem e scripts internos
+scripts/
+output/
+divulgacao-instagram/
+material-interativo/
+
+# Skills e ferramentas locais
+ui-ux-pro-max-skill-main/
+.codex/
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/

@@ -1,0 +1,3225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design de Sobrancelhas Profissional — Método Lais Marques</title>
+<meta name="description" content="Apostila interativa do curso Design de Sobrancelhas Profissional — Método Lais Marques. Studio da Beleza.">
+<meta name="theme-color" content="#FAF1E5">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   LAIS MARQUES — Apostila Interativa
+   Design system aplicado de design-system.md
+   ============================================ */
+
+/* ---------- TOKENS ---------- */
+:root {
+  /* Metal */
+  --gold-50:  #F5C79C;
+  --gold-100: #E3B07F;
+  --gold-300: #B67750;
+  --gold-500: #9F7657;
+  --gold-700: #7A4F2C;
+  --gold-900: #653D1F;
+
+  /* Cremes */
+  --cream-50:  #FAF1E5;
+  --cream-100: #F1E5D2;
+  --cream-200: #E8D4B6;
+  --cream-300: #D4B896;
+
+  /* Tintas */
+  --ink-900: #0C0D0D;
+  --ink-800: #1C1C1C;
+  --ink-700: #2B2B2B;
+  --ink-500: #5C544C;
+  --ink-300: #8E867D;
+
+  --white: #FFFFFF;
+
+  /* Semânticos */
+  --bg:            var(--cream-50);
+  --surface:       var(--white);
+  --surface-muted: var(--cream-100);
+  --text:          var(--ink-800);
+  --text-muted:    var(--ink-500);
+  --text-subtle:   var(--ink-300);
+  --brand:         var(--gold-300);
+  --brand-deep:    var(--gold-900);
+  --brand-soft:    var(--gold-500);
+  --divider:       var(--cream-300);
+  --on-brand:      var(--cream-50);
+
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  --font-body:    'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  /* Espaçamento (4pt) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-24: 96px; --s-32: 128px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+
+  --shadow-sm: 0 1px 2px rgba(101, 61, 31, 0.08);
+  --shadow-md: 0 4px 16px rgba(101, 61, 31, 0.10);
+  --shadow-lg: 0 16px 48px rgba(101, 61, 31, 0.14);
+
+  --ease: cubic-bezier(0.32, 0.72, 0.24, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+
+  --sidebar-w: 304px;
+  --navbar-h: 88px;
+  --reading-w: 680px;
+}
+
+[data-theme="dark"] {
+  --bg:            var(--ink-900);
+  --surface:       var(--ink-800);
+  --surface-muted: #161717;
+  --text:          var(--cream-50);
+  --text-muted:    #B8AFA3;
+  --text-subtle:   #6F6760;
+  --brand:         var(--gold-100);
+  --brand-deep:    var(--gold-50);
+  --brand-soft:    var(--gold-300);
+  --divider:       #2A2826;
+  --on-brand:      var(--ink-900);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  transition: background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+button { font: inherit; cursor: pointer; }
+a { color: var(--brand-deep); text-decoration-color: var(--brand); text-underline-offset: 3px; }
+a:hover { color: var(--brand); }
+
+/* ---------- PROGRESS BAR ---------- */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; background: transparent; z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+}
+.progress::after {
+  content: ""; display: block; height: 100%; width: 100%;
+  transform-origin: left center;
+  transform: scaleX(var(--progress-x, 0));
+  background: linear-gradient(90deg, var(--gold-700), var(--gold-300), var(--gold-50));
+  transition: transform 120ms linear;
+  will-change: transform;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--navbar-h);
+  display: flex; align-items: center;
+  padding: 0 var(--s-6);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  z-index: 50;
+  transition: background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease);
+}
+.navbar.is-scrolled {
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--divider);
+}
+.navbar.is-on-cover .navbar__brand { opacity: 0; pointer-events: none; }
+
+.navbar__brand {
+  display: flex; align-items: center;
+  margin-right: auto;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  pointer-events: none;
+}
+.navbar.is-scrolled .navbar__brand {
+  opacity: 1; transform: none; pointer-events: auto;
+}
+.navbar__brand-img {
+  height: 64px;
+  width: auto;
+  display: block;
+}
+.navbar__actions { display: flex; gap: var(--s-1); align-items: center; }
+.icon-btn {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: none;
+  border-radius: var(--radius-md);
+  color: var(--text);
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.icon-btn:hover { background: var(--surface-muted); color: var(--brand-deep); }
+.icon-btn svg { width: 20px; height: 20px; }
+
+/* ---------- SIDEBAR (drawer Notion-style) ---------- */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  overflow-y: auto;
+  padding: calc(var(--navbar-h) + var(--s-4)) var(--s-4) var(--s-12);
+  border-right: 1px solid var(--divider);
+  background: var(--bg);
+  z-index: 55;
+  scrollbar-width: thin;
+  scrollbar-color: var(--divider) transparent;
+  transform: translateX(-100%);
+  transition: transform var(--dur-base) var(--ease);
+  box-shadow: var(--shadow-lg);
+}
+.sidebar.is-open { transform: translateX(0); }
+.sidebar__backdrop {
+  position: fixed; inset: 0;
+  background: rgba(12, 13, 13, 0.32);
+  z-index: 54;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.sidebar__backdrop.is-visible { opacity: 1; pointer-events: auto; }
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 3px; }
+
+.sidebar__search {
+  display: flex; align-items: center; gap: var(--s-2);
+  padding: 0 0 var(--s-2);
+  margin: 0 0 var(--s-4);
+  border-bottom: 1px solid var(--divider);
+}
+.sidebar__search input {
+  flex: 1;
+  border: none; background: transparent;
+  font: 400 14px/1.5 var(--font-body);
+  color: var(--text);
+  padding: var(--s-2) 0;
+  outline: none;
+}
+.sidebar__search input::placeholder { color: var(--text-subtle); }
+.sidebar__search svg { width: 16px; height: 16px; color: var(--text-subtle); flex-shrink: 0; }
+
+.sidebar__progress {
+  padding: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-5);
+  background: var(--surface-muted);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.sidebar__progress strong { color: var(--brand-deep); font-weight: 600; }
+
+.sidebar__part {
+  margin-bottom: var(--s-4);
+}
+.sidebar__part-title {
+  font-family: var(--font-body);
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--text-subtle);
+  padding: var(--s-2) var(--s-3);
+  margin: 0;
+}
+.sidebar__chapters { list-style: none; padding: 0; margin: 0; }
+.sidebar__chapter a {
+  display: flex; align-items: center; gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13.5px;
+  line-height: 1.4;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.sidebar__chapter a:hover { background: var(--surface-muted); color: var(--text); }
+.sidebar__chapter a.is-active {
+  background: var(--surface-muted);
+  color: var(--brand-deep);
+  font-weight: 500;
+}
+.sidebar__chapter-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--divider);
+  border-radius: 50%;
+  color: var(--text-subtle);
+  transition: all var(--dur-fast) var(--ease);
+}
+.sidebar__chapter a.is-active .sidebar__chapter-num {
+  background: var(--brand-deep);
+  color: var(--on-brand);
+  border-color: var(--brand-deep);
+}
+.sidebar__chapter[data-read="true"] .sidebar__chapter-num {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-color: var(--brand);
+}
+.sidebar__chapter[data-read="true"] .sidebar__chapter-num::before {
+  content: "✓"; font-family: var(--font-body); font-size: 11px;
+}
+.sidebar__chapter[data-read="true"] .sidebar__chapter-num-text { display: none; }
+.sidebar__chapter[hidden] { display: none; }
+
+@media (max-width: 600px) {
+  .sidebar { width: min(86vw, 320px); }
+}
+
+/* ---------- MAIN ---------- */
+main { margin-left: 0; }
+
+/* ---------- COVER ---------- */
+.cover {
+  min-height: calc(100vh - var(--navbar-h));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background: var(--cream-100);
+  color: var(--ink-800);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="dark"] .cover { background: var(--cream-100); color: var(--ink-800); }
+
+.cover__art {
+  height: 100%; min-height: 480px;
+  background-size: cover;
+  background-position: center;
+  background-image: url('imagens-apostila/01-capa-curso-design-sobrancelhas.png');
+  position: relative;
+}
+.cover__art::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 55%, var(--cream-100) 100%);
+}
+
+.cover__content {
+  padding: var(--s-16) var(--s-12);
+  max-width: 560px;
+}
+.cover__logo {
+  display: block;
+  width: clamp(220px, 32vw, 320px);
+  height: auto;
+  margin: 0 0 var(--s-4);
+  filter: drop-shadow(0 8px 24px rgba(101, 61, 31, 0.18));
+}
+.fio-lais {
+  display: flex; align-items: center; gap: var(--s-2);
+  margin: var(--s-6) 0;
+}
+.fio-lais::before, .fio-lais::after {
+  content: ""; flex: 1; max-width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+}
+.fio-lais__dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold-300);
+}
+.fio-lais--left { justify-content: flex-start; }
+.fio-lais--left::after { display: none; }
+
+.cover__title {
+  font-family: var(--font-display);
+  font-weight: 500; font-style: italic;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink-800);
+  margin: 0 0 var(--s-2);
+}
+.cover__subtitle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--gold-900);
+  margin: 0 0 var(--s-6);
+  letter-spacing: 0.01em;
+}
+.cover__desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-500);
+  margin: 0 0 var(--s-8);
+  max-width: 420px;
+}
+.cover__cta {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  background: var(--ink-800);
+  color: var(--cream-50);
+  border: none; padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-weight: 600; font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.cover__cta:hover { background: var(--gold-900); transform: translateY(-1px); }
+
+@media (max-width: 768px) {
+  .cover { grid-template-columns: 1fr; }
+  .cover__art { min-height: 320px; }
+  .cover__art::after {
+    background: linear-gradient(180deg, transparent 40%, var(--ink-900) 100%);
+  }
+  .cover__content { padding: var(--s-8) var(--s-6) var(--s-12); }
+  .cover__mark { font-size: 48px; }
+}
+
+/* ---------- PART HEADER ---------- */
+.part {
+  padding: var(--s-24) var(--s-6) var(--s-4);
+  max-width: 880px;
+  margin: 0 auto;
+}
+.part__eyebrow {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.4em;
+  color: var(--brand);
+  margin: 0 0 var(--s-2);
+}
+.part__title {
+  font-family: var(--font-display);
+  font-weight: 500; font-style: italic;
+  font-size: clamp(40px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ---------- CHAPTER ---------- */
+.chapter {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--s-16) var(--s-6) var(--s-12);
+  scroll-margin-top: calc(var(--navbar-h) + 16px);
+}
+.chapter__eyebrow {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.32em;
+  color: var(--brand-soft);
+  margin: 0 0 var(--s-3);
+}
+.chapter__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 3.5vw, 40px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 var(--s-4);
+}
+.chapter__fio { margin: var(--s-2) 0 var(--s-8); justify-content: flex-start; }
+.chapter__fio::before { max-width: 60px; }
+.chapter__fio::after { display: none; }
+
+.chapter__body p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 var(--s-4);
+  color: var(--text);
+}
+.chapter__body > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.4em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.08em 0.1em 0 0;
+  color: var(--brand-deep);
+}
+
+.chapter__figure {
+  margin: var(--s-8) 0;
+  position: relative;
+}
+.chapter__figure img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  cursor: zoom-in;
+  transition: transform var(--dur-base) var(--ease);
+}
+.chapter__figure img:hover { transform: scale(1.005); }
+.chapter__figure figcaption {
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--brand);
+}
+.chapter__figure--top {
+  margin: 0 auto var(--s-8);
+  width: 100%;
+  max-width: 880px;
+}
+.chapter__figure--top img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+.chapter__figure--top figcaption {
+  margin-top: var(--s-3);
+  padding-left: var(--s-3);
+}
+
+/* ---------- CALLOUTS ---------- */
+.callout {
+  margin: var(--s-6) 0;
+  padding: var(--s-5) var(--s-6);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid var(--brand);
+}
+.callout__label {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--brand-deep);
+  margin: 0 0 var(--s-2);
+}
+.callout p { margin: 0; font-size: 15px; line-height: 1.7; }
+
+.callout--atencao    { background: var(--surface-muted); border-left-color: var(--gold-900); }
+.callout--atencao .callout__label { color: var(--gold-900); }
+
+.callout--erro       { background: #F6E5DF; border-left-color: #8F3D34; }
+[data-theme="dark"] .callout--erro { background: #3a201c; }
+.callout--erro .callout__label { color: #8F3D34; }
+[data-theme="dark"] .callout--erro .callout__label { color: #E89F92; }
+
+.callout--dica       { border-left-color: var(--brand); }
+.callout--pratica    { background: var(--surface-muted); border-left-color: var(--ink-800); }
+[data-theme="dark"] .callout--pratica .callout__label { color: var(--cream-50); }
+.callout--checklist  { border-left-color: var(--brand-soft); }
+.callout--exercicio  { background: var(--surface-muted); border-left-color: var(--brand-deep); }
+
+/* ---------- CHAPTER FOOTER ---------- */
+.chapter__footer {
+  margin-top: var(--s-10);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--divider);
+  display: flex; flex-wrap: wrap; gap: var(--s-4);
+  align-items: center; justify-content: space-between;
+}
+.mark-read {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+.mark-read input { accent-color: var(--brand); width: 16px; height: 16px; cursor: pointer; }
+.mark-read input:checked + span { color: var(--brand-deep); font-weight: 500; }
+
+.chapter-nav { display: flex; gap: var(--s-2); }
+.chapter-nav a {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  font-size: 12px; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--radius-md);
+  transition: all var(--dur-fast) var(--ease);
+}
+.chapter-nav a:hover { background: var(--surface-muted); color: var(--brand-deep); }
+
+/* ---------- APPENDIX ---------- */
+.appendix {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--s-16) var(--s-6);
+  scroll-margin-top: calc(var(--navbar-h) + 16px);
+}
+
+/* Anamnese form */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  margin-top: var(--s-8);
+}
+.form-field { display: flex; flex-direction: column; gap: var(--s-1); }
+.form-field label {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+}
+.form-field input[type="text"],
+.form-field input[type="tel"],
+.form-field input[type="date"],
+.form-field textarea {
+  border: none;
+  border-bottom: 1px solid var(--divider);
+  background: transparent;
+  padding: var(--s-2) 0;
+  font: 400 16px/1.5 var(--font-body);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.form-field input:focus,
+.form-field textarea:focus { border-bottom-color: var(--brand-deep); }
+.form-radio-group { display: flex; gap: var(--s-4); flex-wrap: wrap; }
+.form-radio-group label {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  font: 400 14px/1.5 var(--font-body);
+  text-transform: none; letter-spacing: 0;
+  color: var(--text);
+  cursor: pointer;
+}
+.form-radio-group input { accent-color: var(--brand-deep); }
+.signature-line {
+  border-bottom: 1px solid var(--text);
+  min-height: 32px;
+  margin-top: var(--s-2);
+}
+
+/* Quiz */
+.quiz { list-style: none; padding: 0; margin: var(--s-8) 0 0; counter-reset: q; }
+.quiz-item {
+  padding: var(--s-6);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--divider);
+  margin-bottom: var(--s-4);
+}
+.quiz-item__question {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--text);
+  margin: 0 0 var(--s-4);
+  counter-increment: q;
+}
+.quiz-item__question::before {
+  content: counter(q) ".";
+  display: inline-block;
+  color: var(--brand);
+  margin-right: var(--s-2);
+}
+.quiz-item__options { list-style: none; padding: 0; margin: 0 0 var(--s-4); display: grid; gap: var(--s-2); }
+.quiz-item__options label {
+  display: flex; align-items: flex-start; gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.quiz-item__options label:hover { background: var(--surface-muted); }
+.quiz-item__options input { accent-color: var(--brand-deep); margin-top: 4px; }
+.quiz-item.is-correct .quiz-item__options label.is-selected {
+  background: #E8F1E6; border-color: #4F8254;
+}
+[data-theme="dark"] .quiz-item.is-correct .quiz-item__options label.is-selected { background: #1f2e1d; }
+.quiz-item.is-wrong .quiz-item__options label.is-selected {
+  background: #F6E5DF; border-color: #8F3D34;
+}
+[data-theme="dark"] .quiz-item.is-wrong .quiz-item__options label.is-selected { background: #3a201c; }
+.quiz-item.is-wrong .quiz-item__options label.is-correct {
+  background: #E8F1E6; border-color: #4F8254;
+}
+[data-theme="dark"] .quiz-item.is-wrong .quiz-item__options label.is-correct { background: #1f2e1d; }
+.quiz-item__check, .quiz-item__feedback { display: inline-block; }
+.quiz-item__check {
+  background: var(--ink-800);
+  color: var(--cream-50);
+  border: none; padding: 10px 22px;
+  border-radius: var(--radius-md);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+[data-theme="dark"] .quiz-item__check { background: var(--gold-100); color: var(--ink-900); }
+.quiz-item__check:hover { background: var(--brand-deep); }
+.quiz-item__feedback {
+  margin-left: var(--s-3);
+  font-size: 13px; font-weight: 500;
+}
+.quiz-item.is-correct .quiz-item__feedback { color: #4F8254; }
+.quiz-item.is-wrong .quiz-item__feedback { color: #8F3D34; }
+[data-theme="dark"] .quiz-item.is-correct .quiz-item__feedback { color: #88C088; }
+[data-theme="dark"] .quiz-item.is-wrong .quiz-item__feedback { color: #E89F92; }
+
+.quiz-item__actions { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.quiz-item__explain {
+  margin-top: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  background: var(--surface-muted);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--brand);
+}
+.quiz-item__explain-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--brand-deep);
+  margin: 0 0 var(--s-1);
+}
+.quiz-item__explain p { margin: 0; font-size: 14px; line-height: 1.6; }
+
+.quiz-final-btn {
+  display: block;
+  margin: var(--s-8) auto 0;
+  min-width: 240px;
+}
+.quiz-reset-btn {
+  display: block;
+  margin: var(--s-3) auto 0;
+}
+.quiz-item--exam .quiz-item__options input:disabled { cursor: not-allowed; }
+.quiz-item--exam .quiz-item__options label { transition: background-color var(--dur-fast) var(--ease); }
+
+.quiz-score {
+  margin-top: var(--s-6);
+  padding: var(--s-8) var(--s-6);
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.quiz-score__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--brand-deep);
+  line-height: 1;
+  display: flex; align-items: baseline; justify-content: center; gap: var(--s-2);
+}
+.quiz-score__num { font-size: 84px; line-height: 0.9; }
+.quiz-score__total { font-size: 28px; color: var(--text-muted); }
+.quiz-score__meta {
+  display: flex; align-items: center; justify-content: center; gap: var(--s-4);
+  margin-top: var(--s-4);
+  min-height: 28px;
+  flex-wrap: wrap;
+}
+.quiz-score__detail {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.quiz-score__status {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  padding: 5px 12px;
+  border-radius: 9999px;
+}
+.quiz-score__status.is-excellent { background: #E8F1E6; color: #2F5C36; }
+.quiz-score__status.is-passed    { background: var(--cream-100); color: var(--brand-deep); }
+.quiz-score__status.is-review    { background: #F6E5DF; color: #8F3D34; }
+[data-theme="dark"] .quiz-score__status.is-excellent { background: #1f2e1d; color: #88C088; }
+[data-theme="dark"] .quiz-score__status.is-passed    { background: #2A2826; color: var(--gold-100); }
+[data-theme="dark"] .quiz-score__status.is-review    { background: #3a201c; color: #E89F92; }
+.quiz-score__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--text-muted);
+  margin-top: var(--s-4);
+}
+
+/* Módulos */
+.module {
+  margin-top: var(--s-12);
+  padding-top: var(--s-12);
+  border-top: 1px solid var(--divider);
+}
+.module:first-of-type { margin-top: var(--s-8); padding-top: 0; border-top: 0; }
+.module__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--brand-deep);
+  margin: 0 0 var(--s-3);
+}
+.module__instructions {
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 0 0 var(--s-6);
+  font-size: 15px;
+}
+
+/* Atividade prática/reflexiva */
+.activity {
+  margin-top: var(--s-8);
+  padding: var(--s-6) var(--s-6);
+  background: var(--surface-muted);
+  border-radius: var(--radius-md);
+}
+.activity__label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--brand-deep);
+  margin: 0 0 var(--s-2);
+}
+.activity__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0 0 var(--s-3);
+  color: var(--text);
+}
+.activity__intro { font-size: 14.5px; color: var(--text); margin: 0 0 var(--s-5); }
+.activity__image { margin: var(--s-4) 0 var(--s-6); }
+.activity__image img {
+  width: 100%; border-radius: var(--radius-md); cursor: zoom-in;
+  box-shadow: var(--shadow-md);
+}
+.activity__block {
+  background: var(--surface);
+  padding: var(--s-5);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--s-4);
+  border: 1px solid var(--divider);
+}
+.activity__block-title {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--brand-deep);
+  margin: 0 0 var(--s-3);
+}
+.activity__field { margin-bottom: var(--s-3); }
+.activity__field:last-child { margin-bottom: 0; }
+.activity__field label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: var(--s-1);
+  line-height: 1.45;
+}
+.activity__field input[type="text"],
+.activity__field textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--divider);
+  background: transparent;
+  padding: var(--s-2) 0;
+  font: 400 15px/1.5 var(--font-body);
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+}
+.activity__field textarea { min-height: 60px; }
+.activity__field input:focus,
+.activity__field textarea:focus { border-bottom-color: var(--brand-deep); }
+
+/* Marcação prática */
+.marcacao-steps {
+  list-style: none; padding: 0; margin: var(--s-6) 0;
+  counter-reset: step;
+}
+.marcacao-steps li {
+  counter-increment: step;
+  display: flex; align-items: flex-start; gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--divider);
+}
+.marcacao-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--brand);
+  width: 32px;
+}
+.marcacao-steps label {
+  display: flex; align-items: flex-start; gap: var(--s-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.marcacao-steps input { margin-top: 4px; accent-color: var(--brand-deep); }
+
+/* Gabarito (details) */
+.gabarito {
+  margin-top: var(--s-8);
+  padding: 0 var(--s-6);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+.gabarito summary {
+  cursor: pointer;
+  padding: var(--s-5) 0;
+  font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--brand-deep);
+  list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.gabarito summary::after {
+  content: "+"; font-size: 20px; font-weight: 400;
+  font-family: var(--font-display);
+}
+.gabarito[open] summary::after { content: "−"; }
+.gabarito-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--s-3);
+  padding: 0 0 var(--s-6);
+}
+.gabarito-item {
+  background: var(--surface-muted);
+  padding: var(--s-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.gabarito-item__num {
+  font-size: 11px; color: var(--text-muted); display: block;
+}
+.gabarito-item__ans {
+  font-family: var(--font-display);
+  font-weight: 600; font-size: 22px;
+  color: var(--brand-deep);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  background: var(--ink-800);
+  color: var(--cream-50);
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.btn:hover { background: var(--brand-deep); transform: translateY(-1px); }
+[data-theme="dark"] .btn { background: var(--gold-100); color: var(--ink-900); }
+[data-theme="dark"] .btn:hover { background: var(--gold-50); }
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--divider);
+}
+.btn--ghost:hover { background: var(--surface-muted); border-color: var(--brand); }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+
+/* ---------- BACK TO TOP ---------- */
+.back-to-top {
+  position: fixed;
+  bottom: var(--s-6); right: var(--s-6);
+  width: 44px; height: 44px;
+  background: var(--ink-800);
+  color: var(--cream-50);
+  border: none;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  z-index: 30;
+}
+.back-to-top.is-visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { background: var(--brand-deep); transform: translateY(-2px); }
+[data-theme="dark"] .back-to-top { background: var(--gold-100); color: var(--ink-900); }
+[data-theme="dark"] .back-to-top:hover { background: var(--gold-50); }
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(12, 13, 13, 0.92);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--s-6);
+  z-index: 200;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.lightbox.is-open { opacity: 1; pointer-events: auto; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.lightbox__close {
+  position: absolute;
+  top: var(--s-4); right: var(--s-4);
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.1);
+  color: var(--cream-50);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.lightbox__close:hover { background: rgba(255,255,255,0.2); }
+
+/* ---------- SUMARIO LIST ---------- */
+.toc-list {
+  list-style: none; padding: 0; margin: var(--s-6) 0 0;
+  columns: 2; column-gap: var(--s-8);
+}
+@media (max-width: 600px) { .toc-list { columns: 1; } }
+.toc-list li {
+  break-inside: avoid;
+  padding: var(--s-2) 0;
+  border-bottom: 1px dotted var(--divider);
+  font-size: 14px;
+}
+.toc-list a {
+  display: flex; justify-content: space-between; align-items: baseline;
+  text-decoration: none;
+  color: var(--text);
+  transition: color var(--dur-fast) var(--ease);
+}
+.toc-list a:hover { color: var(--brand-deep); }
+.toc-list .toc-num {
+  color: var(--brand);
+  font-size: 11px; font-weight: 600;
+  margin-right: var(--s-2);
+  flex-shrink: 0;
+}
+
+/* ---------- REVEAL ON SCROLL ---------- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- MINI PROGRESS (right rail) ---------- */
+.rail {
+  position: fixed;
+  right: var(--s-6); top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column;
+  gap: 6px;
+  z-index: 30;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.rail.is-visible { opacity: 1; pointer-events: auto; }
+.rail__dot {
+  width: 4px; height: 14px;
+  border-radius: 2px;
+  background: var(--divider);
+  display: block;
+  transition: all var(--dur-fast) var(--ease);
+  position: relative;
+  cursor: pointer;
+  border: none; padding: 0;
+}
+.rail__dot:hover { background: var(--brand-soft); transform: scaleY(1.2); }
+.rail__dot.is-active {
+  background: var(--brand-deep);
+  height: 28px;
+}
+.rail__dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + 14px); top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface);
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.rail__dot:hover::after { opacity: 1; }
+@media (max-width: 768px) { .rail { display: none; } }
+
+/* ---------- HIDDEN ---------- */
+[hidden] { display: none !important; }
+
+/* ---------- PRINT ---------- */
+@media print {
+  .navbar, .sidebar, .sidebar__backdrop, .back-to-top, .menu-toggle,
+  .icon-btn, .progress, .chapter__footer, .chapter-nav,
+  .btn-row, .gabarito summary::after { display: none !important; }
+  main { margin-left: 0; padding-top: 0; }
+  body { background: white; color: black; font-size: 11pt; }
+  .cover { min-height: auto; page-break-after: always; }
+  .chapter, .appendix { page-break-inside: avoid; }
+  .chapter__figure img { max-height: 14cm; }
+  .callout { break-inside: avoid; box-shadow: none; }
+  .gabarito[open] summary::after { content: ""; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+
+<header class="navbar">
+  <button class="icon-btn menu-toggle" aria-label="Menu" id="menuToggle">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <a href="#cover" class="navbar__brand" aria-label="Lais Marques · Studio da Beleza">
+    <img class="navbar__brand-img" src="marca-lais-marques/logo-lais-marques-transparente.png" alt="Lais Marques · Studio da Beleza">
+  </a>
+  <div class="navbar__actions">
+    <button class="icon-btn" id="themeToggle" aria-label="Alternar tema">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="icon-sun"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="icon-moon" hidden><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="icon-btn" onclick="window.print()" aria-label="Imprimir">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="sidebar__backdrop" id="sidebarBackdrop"></div>
+
+<aside class="sidebar" id="sidebar" aria-label="Navegação por capítulos">
+  <div class="sidebar__search">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="searchInput" placeholder="Buscar capítulo..." aria-label="Buscar">
+  </div>
+  <div class="sidebar__progress" id="progressBox">
+    <span>Progresso</span>
+    <span><strong id="progressNum">0</strong> de 50</span>
+  </div>
+  <nav id="sidebarNav"></nav>
+</aside>
+
+<main>
+
+<!-- ============================================ COVER ============================================ -->
+<section class="cover" id="cover">
+  <div class="cover__art" role="img" aria-label="Capa do curso"></div>
+  <div class="cover__content">
+    <img class="cover__logo" src="marca-lais-marques/logo-lais-marques-transparente.png" alt="Lais Marques · Studio da Beleza">
+    <div class="fio-lais fio-lais--left"><span class="fio-lais__dot"></span></div>
+    <h1 class="cover__title">Design de<br>Sobrancelhas</h1>
+    <p class="cover__subtitle">Profissional — Método Lais Marques</p>
+    <p class="cover__desc">Apostila interativa do curso presencial. Técnica, harmonia facial, biossegurança, henna, cera fria e atendimento.</p>
+    <a href="#cap-01" class="cover__cta">
+      Começar o curso
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- =================== PARTE 1 — INTRODUÇÃO =================== -->
+<section class="part" id="parte-1">
+  <p class="part__eyebrow">Parte 1</p>
+  <h2 class="part__title">Boas-vindas e visão geral</h2>
+</section>
+
+<article class="chapter" id="cap-01" data-num="01">
+  <p class="chapter__eyebrow">Capítulo 01</p>
+  <h1 class="chapter__title">Boas-vindas</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Seja muito bem-vinda ao curso Design de Sobrancelhas Profissional — Método Lais Marques.</p>
+    <p>Esta apostila foi criada para acompanhar sua jornada de aprendizado de forma simples, prática e segura. Aqui, você encontrará os fundamentos necessários para iniciar no design de sobrancelhas com mais confiança, entendendo não apenas como executar uma técnica, mas também como observar, avaliar e respeitar a beleza natural de cada cliente.</p>
+    <p>O design de sobrancelhas é um serviço delicado. Ele envolve estética, cuidado, higiene, comunicação e responsabilidade. Por isso, cada detalhe importa: a forma de receber a cliente, a análise do rosto, a marcação, a retirada dos pelos, o acabamento, a aplicação da henna e as orientações finais.</p>
+    <p>Ao longo deste curso, você aprenderá que uma boa profissional não transforma todas as sobrancelhas no mesmo modelo. Ela sabe valorizar cada rosto com equilíbrio e naturalidade.</p>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>Antes de pensar em remover pelos, aprenda a observar. O olhar técnico vem antes da mão técnica.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-02" data-num="02">
+  <p class="chapter__eyebrow">Capítulo 02</p>
+  <h1 class="chapter__title">Como usar esta apostila</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Esta apostila foi organizada para acompanhar as duas aulas presenciais do curso. Use este material para estudar, fazer anotações, revisar os passos das técnicas e praticar depois da aula.</p>
+    <p>Durante o curso, você encontrará conteúdos teóricos, imagens explicativas, checklists, exercícios e espaços de prática. A proposta é que você aprenda de forma progressiva: primeiro entende, depois observa, depois pratica.</p>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Sempre que aprender uma técnica nova, treine primeiro em papel, rosto impresso ou modelo supervisionada antes de aplicar sozinha em clientes.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-03" data-num="03">
+  <p class="chapter__eyebrow">Capítulo 03</p>
+  <h1 class="chapter__title">Sumário</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Os 50 capítulos da apostila estão organizados em 13 partes temáticas. Clique em qualquer item abaixo para ir direto ao capítulo.</p>
+    <ol class="toc-list" id="tocList"></ol>
+  </div>
+</article>
+
+<article class="chapter" id="cap-04" data-num="04">
+  <p class="chapter__eyebrow">Capítulo 04</p>
+  <h1 class="chapter__title">Objetivos do curso</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/18-antes-e-depois-ilustrativo.png" alt="Antes e depois ilustrativo do design de sobrancelhas" loading="lazy">
+  </figure>
+  <div class="chapter__body">
+    <p>O objetivo deste curso é preparar você para realizar um atendimento profissional em design de sobrancelhas, com segurança, técnica e bom senso estético.</p>
+    <p>Ao final da formação, você deverá ser capaz de avaliar o formato natural das sobrancelhas, identificar falhas e excessos, aplicar noções básicas de visagismo, organizar materiais e bancada com higiene, fazer anamnese, realizar marcação, executar retirada com pinça, usar cera fria de forma complementar e segura, aparar fios, aplicar henna e orientar a cliente.</p>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Ao terminar o curso, revise se você sabe explicar cada etapa antes de executá-la. Quem entende o processo atende com mais confiança.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-05" data-num="05">
+  <p class="chapter__eyebrow">Capítulo 05</p>
+  <h1 class="chapter__title">O mercado do design de sobrancelhas</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O design de sobrancelhas é um dos serviços mais procurados dentro da área da beleza, porque oferece resultado visível, atendimento rápido e possibilidade de fidelização.</p>
+    <p>Uma cliente satisfeita tende a retornar para manutenção e também pode indicar o serviço para outras pessoas. Por isso, além da técnica, a profissional precisa desenvolver postura, organização e bom atendimento.</p>
+    <p>Existem diferentes formas de atuar: em salão de beleza, em studio próprio, em espaço compartilhado, como profissional autônoma ou em parceria com maquiadoras, lash designers e esteticistas.</p>
+    <p>O mercado valoriza profissionais que entregam naturalidade, higiene, pontualidade e segurança.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/17-cuidados-pos-procedimento-atendimento.png" alt="Atendimento profissional ao cliente" loading="lazy">
+      <figcaption>Fig. 01 — Atendimento profissional: postura, higiene e cuidado fazem parte do serviço.</figcaption>
+    </figure>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>Não venda apenas tirar sobrancelha. Venda cuidado, harmonia, segurança e autoestima.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 2 — FUNDAMENTOS =================== -->
+<section class="part" id="parte-2">
+  <p class="part__eyebrow">Parte 2</p>
+  <h2 class="part__title">Fundamentos do design</h2>
+</section>
+
+<article class="chapter" id="cap-06" data-num="06">
+  <p class="chapter__eyebrow">Capítulo 06</p>
+  <h1 class="chapter__title">O que é design de sobrancelhas</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Design de sobrancelhas é o estudo e a construção de um formato mais harmônico para as sobrancelhas, respeitando o rosto, os fios naturais e o estilo da cliente.</p>
+    <p>Ele não deve ser confundido com uma simples limpeza. Na limpeza, a profissional remove apenas excessos aparentes. No design, existe análise, marcação, proporção e acabamento.</p>
+    <p>Design define o formato. Correção melhora falhas ou assimetrias com o tempo. Henna colore temporariamente para preencher visualmente e destacar o desenho. Manutenção preserva o formato.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/05-tipos-de-sobrancelhas.png" alt="Tipos de sobrancelhas" loading="lazy">
+      <figcaption>Fig. 02 — Variações de formato e a sensação visual que cada uma transmite.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Nem toda sobrancelha pode chegar ao formato desejado em uma única sessão. Falhas precisam de tempo, orientação e paciência.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-07" data-num="07">
+  <p class="chapter__eyebrow">Capítulo 07</p>
+  <h1 class="chapter__title">Anatomia da sobrancelha</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/03-anatomia-da-sobrancelha.png" alt="Anatomia da sobrancelha" loading="lazy">
+    <figcaption>Fig. 03 — Início, corpo, arco e cauda: as quatro regiões que toda profissional precisa enxergar antes de tocar nos fios.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>Antes de iniciar qualquer procedimento, a designer precisa conhecer a estrutura básica da sobrancelha.</p>
+    <p>A sobrancelha pode ser dividida em início, corpo, arco, cauda, linha superior e linha inferior. Também é importante observar a direção dos fios. Alguns crescem para cima, outros para o lado e outros para baixo. Essa direção deve ser respeitada durante o design.</p>
+    <p>Quando a profissional ignora a anatomia natural, o risco de criar falhas ou deixar o resultado artificial aumenta.</p>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Antes de marcar, penteie os fios e observe para onde eles crescem. A direção dos pelos ajuda a indicar o melhor desenho.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-08" data-num="08">
+  <p class="chapter__eyebrow">Capítulo 08</p>
+  <h1 class="chapter__title">Crescimento dos fios</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Os pelos da sobrancelha passam por fases de crescimento, repouso e queda. Por isso, nem toda falha pode ser corrigida imediatamente.</p>
+    <p>Quando uma cliente chega com sobrancelhas muito finas, falhadas ou retiradas de forma incorreta, a melhor conduta é preservar os fios existentes e orientar um plano de recuperação.</p>
+    <p>O tempo de crescimento varia de pessoa para pessoa. Fatores como genética, idade, hábitos, uso de produtos, alterações hormonais e histórico de retirada excessiva podem influenciar.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Nunca prometa crescimento rápido ou resultado definitivo. A designer pode orientar e preservar, mas o crescimento dos fios depende do organismo da cliente.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-09" data-num="09">
+  <p class="chapter__eyebrow">Capítulo 09</p>
+  <h1 class="chapter__title">Falhas e assimetrias</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Falhas são áreas com ausência ou pouca quantidade de fios. Assimetrias são diferenças entre uma sobrancelha e outra. Ambas são comuns e devem ser avaliadas com cuidado.</p>
+    <p>Nenhuma pessoa tem os dois lados do rosto exatamente iguais. Por isso, o objetivo do design não é criar sobrancelhas idênticas, mas visualmente equilibradas.</p>
+    <p>As falhas podem acontecer por retirada excessiva, cicatrizes, crescimento irregular, hábito de arrancar fios, procedimentos anteriores mal executados ou características naturais da cliente.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/18-antes-e-depois-ilustrativo.png" alt="Comparativo antes e depois" loading="lazy">
+      <figcaption>Fig. 04 — O design valoriza fios existentes em vez de tentar criar simetria perfeita.</figcaption>
+    </figure>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Tentar corrigir uma falha afinando toda a sobrancelha pode piorar o problema e deixar o resultado artificial.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 3 — VISAGISMO =================== -->
+<section class="part" id="parte-3">
+  <p class="part__eyebrow">Parte 3</p>
+  <h2 class="part__title">Visagismo aplicado</h2>
+</section>
+
+<article class="chapter" id="cap-10" data-num="10">
+  <p class="chapter__eyebrow">Capítulo 10</p>
+  <h1 class="chapter__title">Introdução ao visagismo</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/04-formatos-de-rosto.png" alt="Formatos de rosto e visagismo" loading="lazy">
+    <figcaption>Fig. 05 — Cada rosto pede um olhar individual: o visagismo é a ponte entre estrutura e estilo.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>Visagismo é a análise da imagem pessoal com o objetivo de criar harmonia entre traços, expressão, estilo e intenção visual. No design de sobrancelhas, ele ajuda a profissional a entender que cada rosto pede uma avaliação individual.</p>
+    <p>A mesma sobrancelha não combina com todas as pessoas. Um formato muito arqueado pode deixar a expressão mais forte. Um formato muito fino pode envelhecer ou endurecer o olhar. Uma sobrancelha muito baixa pode transmitir aparência de cansaço ou tristeza.</p>
+    <p>O objetivo é equilibrar técnica e naturalidade.</p>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>A melhor sobrancelha é aquela que parece pertencer ao rosto da cliente: bonita, limpa, bem desenhada e natural.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-11" data-num="11">
+  <p class="chapter__eyebrow">Capítulo 11</p>
+  <h1 class="chapter__title">Formatos de rosto</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/04-formatos-de-rosto.png" alt="Diferentes formatos de rosto" loading="lazy">
+  </figure>
+  <div class="chapter__body">
+    <p>Conhecer os formatos de rosto ajuda a designer a escolher linhas mais suaves ou mais definidas para cada cliente. Essa análise deve ser feita com cuidado, sem transformar o rosto em uma regra matemática.</p>
+    <p>Oval costuma aceitar diferentes formatos. Redondo pode se beneficiar de leve arco. Quadrado pede equilíbrio sem ângulos duros. Longo exige cuidado com arcos muito altos. Coração harmoniza com formatos suaves. Diamante pode receber leve arco ou arredondamento.</p>
+    <p>A análise do rosto deve ser combinada com o formato natural da sobrancelha.</p>
+    <aside class="callout callout--exercicio">
+      <p class="callout__label">Exercício</p>
+      <p>Observe três colegas ou imagens de rostos diferentes. Identifique o formato predominante e escreva qual tipo de sobrancelha poderia harmonizar melhor.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-12" data-num="12">
+  <p class="chapter__eyebrow">Capítulo 12</p>
+  <h1 class="chapter__title">Tipos de sobrancelhas</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/05-tipos-de-sobrancelhas.png" alt="Tipos de sobrancelhas" loading="lazy">
+  </figure>
+  <div class="chapter__body">
+    <p>Existem vários tipos de sobrancelhas, e cada uma transmite uma sensação diferente no rosto. A profissional precisa conhecer essas variações para orientar a cliente com segurança.</p>
+    <p>Reta transmite suavidade. Arqueada levanta o olhar. Angulosa traz definição, mas pode endurecer se exagerada. Arredondada suaviza os traços. Natural respeita o desenho original. Volumosa valoriza fios cheios. Fina exige cuidado, pois pode envelhecer ou deixar o olhar artificial.</p>
+    <p>O ideal não é seguir moda, mas encontrar o desenho possível e harmônico.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Nunca escolha o formato apenas por tendência. A sobrancelha precisa combinar com rosto, fios, estilo e expectativa da cliente.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-13" data-num="13">
+  <p class="chapter__eyebrow">Capítulo 13</p>
+  <h1 class="chapter__title">Expressão e personalidade</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>As sobrancelhas têm grande influência na expressão facial. Pequenas mudanças no formato podem alterar a forma como o olhar é percebido.</p>
+    <p>Sobrancelhas muito arqueadas podem transmitir surpresa ou rigidez. Muito baixas podem pesar o olhar. Muito finas podem envelhecer a expressão. Muito marcadas podem deixar o resultado artificial.</p>
+    <p>A designer deve conversar com a cliente antes de modificar o formato. Muitas vezes, a cliente deseja uma referência que não combina com sua estrutura natural.</p>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Tentar copiar o design de uma foto sem considerar o rosto e os fios da cliente.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 4 — AVALIAÇÃO E SEGURANÇA =================== -->
+<section class="part" id="parte-4">
+  <p class="part__eyebrow">Parte 4</p>
+  <h2 class="part__title">Avaliação e segurança</h2>
+</section>
+
+<article class="chapter" id="cap-14" data-num="14">
+  <p class="chapter__eyebrow">Capítulo 14</p>
+  <h1 class="chapter__title">Avaliação da cliente</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A avaliação é uma das etapas mais importantes do atendimento. Antes de tocar na sobrancelha, a profissional precisa observar, perguntar e entender o histórico da cliente.</p>
+    <p>Observe formato natural, falhas, assimetria, sensibilidade da pele, irritação, descamação ou lesões, espessura dos fios e expectativa da cliente.</p>
+    <p>Pergunte se a cliente já fez design antes, se teve reação alérgica, se usa ácidos ou realizou procedimentos dermatológicos recentes. Essa conversa evita riscos e ajuda a alinhar expectativa.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/17-cuidados-pos-procedimento-atendimento.png" alt="Avaliação da cliente" loading="lazy">
+      <figcaption>Fig. 06 — Avaliar é olhar, escutar e perguntar antes de tocar.</figcaption>
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Mostre para a cliente, com um espelho, quais áreas serão preservadas e quais excessos serão retirados.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-15" data-num="15">
+  <p class="chapter__eyebrow">Capítulo 15</p>
+  <h1 class="chapter__title">Anamnese</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A anamnese é uma ficha simples com perguntas que ajudam a profissional a conhecer melhor a cliente antes do procedimento. Ela não deve ser vista como burocracia, mas como parte da segurança do atendimento.</p>
+    <p>Pergunte sobre alergias, reações anteriores com henna, cera ou maquiagem, uso de ácidos, peeling, laser, procedimentos recentes, pele irritada, feridas, inflamação, gestação ou tratamento médico.</p>
+    <p>A ficha deve ser preenchida com atenção e armazenada pela profissional, respeitando a privacidade da cliente.</p>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Antes de iniciar, confirme: pele íntegra, ausência de alergia conhecida, autorização da cliente e procedimento adequado para o momento.</p>
+    </aside>
+    <p><a href="#anamnese">→ Ir para a ficha de anamnese interativa</a></p>
+  </div>
+</article>
+
+<article class="chapter" id="cap-16" data-num="16">
+  <p class="chapter__eyebrow">Capítulo 16</p>
+  <h1 class="chapter__title">Contraindicações</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Nem toda cliente estará apta para realizar todos os procedimentos no dia do atendimento. A profissional precisa saber quando adaptar, adiar ou evitar uma técnica.</p>
+    <p>Evite realizar procedimento quando houver feridas, cortes, inflamações, pele irritada, queimada ou descamando, alergia conhecida ao produto utilizado, reação anterior, uso recente de ácidos, peeling químico recente, laser recente, queimadura solar ou sensibilidade intensa.</p>
+    <p>No caso da henna, o teste de sensibilidade deve ser orientado antes da aplicação.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Quando houver dúvida, não arrisque. Oriente a cliente a aguardar ou procurar avaliação profissional adequada.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-17" data-num="17">
+  <p class="chapter__eyebrow">Capítulo 17</p>
+  <h1 class="chapter__title">Biossegurança</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/13-biosseguranca-bancada-higienizada.png" alt="Bancada higienizada" loading="lazy">
+    <figcaption>Fig. 07 — Bancada higienizada, materiais separados, descartáveis prontos: a base de qualquer atendimento profissional.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>Biossegurança é o conjunto de cuidados que protege a profissional e a cliente durante o atendimento. No design de sobrancelhas, ela envolve higiene das mãos, uso de EPIs, limpeza da bancada, cuidado com materiais e descarte correto.</p>
+    <p>Mesmo sendo um procedimento estético, o atendimento acontece próximo aos olhos e envolve contato com pele, fios e produtos. Por isso, a organização e a higiene precisam ser levadas a sério.</p>
+    <p>As normas sanitárias podem variar conforme cidade e estado. A profissional deve consultar a vigilância sanitária local.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Biossegurança não é opcional. Ela faz parte da qualidade do serviço e da imagem profissional.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-18" data-num="18">
+  <p class="chapter__eyebrow">Capítulo 18</p>
+  <h1 class="chapter__title">Higiene das mãos e EPIs</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>As mãos são uma das principais vias de contaminação durante o atendimento. Por isso, devem ser higienizadas antes de tocar nos materiais, na cliente e após finalizar o procedimento.</p>
+    <p>A profissional deve manter mãos limpas, unhas curtas, cabelos presos, uniforme ou roupa adequada, bancada higienizada, luvas descartáveis quando necessário e máscara conforme protocolo do espaço.</p>
+    <p>As luvas não substituem a higienização das mãos. Elas devem ser colocadas com as mãos limpas e descartadas ao final.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/13-biosseguranca-bancada-higienizada.png" alt="Higiene profissional" loading="lazy">
+      <figcaption>Fig. 08 — Higiene visível transmite segurança e profissionalismo.</figcaption>
+    </figure>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Antes de atender: mãos higienizadas, cabelo preso, materiais separados, descartáveis prontos, cliente acomodada e bancada limpa.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-19" data-num="19">
+  <p class="chapter__eyebrow">Capítulo 19</p>
+  <h1 class="chapter__title">Descarte e esterilização</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O cuidado com materiais é essencial para evitar contaminação. Cada item usado no atendimento deve ter uma destinação correta após o uso.</p>
+    <p>Materiais descartáveis, como algodão, cotonetes, luvas, papéis e tiras de cera, devem ser utilizados uma única vez e descartados após o atendimento. A cera fria e as tiras usadas não devem ser reaproveitadas.</p>
+    <p>Materiais reutilizáveis, como pinças e tesouras, devem passar por limpeza e desinfecção ou esterilização conforme o tipo de material, o protocolo do espaço e as exigências sanitárias locais.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Nunca reutilize descartáveis. Nunca reaproveite cera. Nunca guarde material contaminado junto de material limpo.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 5 — MATERIAIS =================== -->
+<section class="part" id="parte-5">
+  <p class="part__eyebrow">Parte 5</p>
+  <h2 class="part__title">Materiais e organização</h2>
+</section>
+
+<article class="chapter" id="cap-20" data-num="20">
+  <p class="chapter__eyebrow">Capítulo 20</p>
+  <h1 class="chapter__title">Materiais profissionais</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/02-materiais-profissionais-organizados.png" alt="Materiais profissionais organizados" loading="lazy">
+    <figcaption>Fig. 09 — Tudo em ordem antes da cliente se acomodar: profissionalismo começa na bancada.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>Para realizar um design de sobrancelhas com segurança e bom acabamento, é importante conhecer os materiais utilizados no atendimento e manter tudo organizado antes de começar.</p>
+    <p>Materiais básicos: pinças, escovinha, tesourinha, lápis dermatográfico, linha, paquímetro, algodão ou gaze, cotonetes, luvas, máscara, produto para higienização da pele, cera fria facial, tiras de cera fria, henna, batoque, aplicador, produto calmante e álcool 70% ou produto indicado.</p>
+    <p>A qualidade do material influencia o conforto, a segurança e o resultado final.</p>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Antes de iniciar, confira se todos os materiais estão limpos, dentro da validade, separados e ao alcance.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-21" data-num="21">
+  <p class="chapter__eyebrow">Capítulo 21</p>
+  <h1 class="chapter__title">Função de cada material</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Cada material tem uma função específica no atendimento. Saber quando e como usar cada item evita improvisos e melhora a qualidade do serviço.</p>
+    <p>Pinça remove pelos com precisão. Escovinha penteia os fios. Tesourinha apara pontas longas. Lápis dermatográfico marca pontos e limites. Linha auxilia guias retas. Paquímetro ajuda a medir proporções. Algodão e gaze limpam. Cotonete corrige detalhes. Cera fria remove excesso em áreas permitidas. Henna preenche visualmente.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/02-materiais-profissionais-organizados.png" alt="Função dos materiais" loading="lazy">
+      <figcaption>Fig. 10 — Cada item tem uma função: improviso é o oposto da técnica.</figcaption>
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Organize os materiais na ordem em que serão usados. Isso economiza tempo e evita interrupções.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-22" data-num="22">
+  <p class="chapter__eyebrow">Capítulo 22</p>
+  <h1 class="chapter__title">Preparação da bancada</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A bancada deve ser preparada antes da cliente se acomodar. Uma bancada limpa e bem organizada transmite profissionalismo e facilita a execução do procedimento.</p>
+    <p>Antes do atendimento, higienize a superfície, separe materiais limpos e descartáveis, confira validade dos produtos, deixe pinças e tesouras higienizadas, separe algodão, gaze e cotonetes, prepare luvas e máscara, organize cera fria, henna e acessórios, deixe lixeira adequada por perto e mantenha apenas o necessário sobre a bancada.</p>
+    <p>Evite objetos pessoais, celular, alimentos ou itens que não fazem parte do procedimento.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/13-biosseguranca-bancada-higienizada.png" alt="Bancada preparada" loading="lazy">
+      <figcaption>Fig. 11 — Apenas o necessário sobre a bancada. Tudo o resto distrai.</figcaption>
+    </figure>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Bancada limpa, materiais separados, produtos válidos, descartáveis prontos, lixeira próxima e ficha preenchida.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 6 — MAPEAMENTO =================== -->
+<section class="part" id="parte-6">
+  <p class="part__eyebrow">Parte 6</p>
+  <h2 class="part__title">Mapeamento e marcação</h2>
+</section>
+
+<article class="chapter" id="cap-23" data-num="23">
+  <p class="chapter__eyebrow">Capítulo 23</p>
+  <h1 class="chapter__title">Mapeamento facial</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/06-mapeamento-tres-pontos.png" alt="Mapeamento dos três pontos" loading="lazy">
+    <figcaption>Fig. 12 — O mapeamento traça o caminho. O olhar profissional ajusta o destino.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>O mapeamento orienta o desenho antes da retirada dos pelos. Ele ajuda a definir onde a sobrancelha deve começar, onde fica o ponto alto e onde deve terminar.</p>
+    <p>Essa etapa evita retirar pelos demais, encurtar a cauda, afinar excessivamente ou deixar as sobrancelhas desproporcionais.</p>
+    <p>O mapeamento deve considerar estrutura natural, formato do rosto, distância entre os olhos, proporção do nariz e dos olhos, volume dos fios, assimetria natural e desejo da cliente. A marcação é um guia, não uma regra rígida.</p>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>A marcação mostra o caminho, mas o olhar profissional decide o melhor ajuste. Técnica e sensibilidade caminham juntas.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-24" data-num="24">
+  <p class="chapter__eyebrow">Capítulo 24</p>
+  <h1 class="chapter__title">Os três pontos</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O design de sobrancelhas começa pela identificação de três pontos principais: início, ponto alto e final.</p>
+    <p>O início é a região mais próxima ao centro do rosto. O ponto alto ou arco é a região de maior elevação da sobrancelha. O final ou cauda é onde a sobrancelha termina.</p>
+    <p>Depois de encontrar os pontos, a profissional deve observar se eles fazem sentido para a cliente. A simetria deve ser buscada de forma visual e realista.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/06-mapeamento-tres-pontos.png" alt="Três pontos" loading="lazy">
+      <figcaption>Fig. 13 — Início, ponto alto e cauda: a estrutura mínima de qualquer design.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Sobrancelhas são irmãs, não gêmeas. O objetivo é equilíbrio, não cópia perfeita de um lado para o outro.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-25" data-num="25">
+  <p class="chapter__eyebrow">Capítulo 25</p>
+  <h1 class="chapter__title">Marcação com linha</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A linha é uma ferramenta prática para criar guias retas durante o mapeamento. Ela ajuda a visualizar alinhamentos e limites do desenho.</p>
+    <p>Passo a passo: higienize a região, penteie os fios, identifique início, ponto alto e final, use a linha pigmentada para criar guias suaves, marque limites superiores e inferiores, observe a simetria e ajuste antes de remover qualquer pelo.</p>
+    <p>A linha deve ser usada com leveza. Marcas muito grossas podem dificultar a visualização dos fios.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/07-marcacao-com-linha.png" alt="Marcação com linha" loading="lazy">
+      <figcaption>Fig. 14 — A linha cria guias retas que ajudam a enxergar a simetria possível.</figcaption>
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Depois de marcar, peça para a cliente abrir os olhos e olhar para frente. Isso ajuda a avaliar o desenho em posição natural.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-26" data-num="26">
+  <p class="chapter__eyebrow">Capítulo 26</p>
+  <h1 class="chapter__title">Marcação com paquímetro</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O paquímetro é usado para medir proporções e comparar distâncias. Ele pode ajudar a profissional iniciante a desenvolver noção de simetria.</p>
+    <p>Com ele, é possível verificar distância entre os inícios, altura dos arcos, comprimento das caudas, espessura aproximada e diferenças visuais entre os lados.</p>
+    <p>Apesar de útil, o paquímetro não substitui a análise do rosto. Medidas exatas nem sempre significam resultado harmônico.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/08-marcacao-com-paquimetro.png" alt="Marcação com paquímetro" loading="lazy">
+      <figcaption>Fig. 15 — O paquímetro mede proporção. A profissional decide a harmonia.</figcaption>
+    </figure>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Forçar medidas iguais em rostos assimétricos pode criar um design artificial e pouco natural.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-27" data-num="27">
+  <p class="chapter__eyebrow">Capítulo 27</p>
+  <h1 class="chapter__title">Exercício de marcação</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Agora é hora de praticar a observação e a marcação dos pontos principais.</p>
+    <p>Em cada rosto impresso, marque início, ponto alto, final, linha inferior, linha superior e área de excesso a ser removida.</p>
+    <p>Depois, responda: as duas sobrancelhas estão visualmente equilibradas? Alguma possui falhas? A cauda está curta, longa ou caída? O início está fechado ou afastado? O desenho respeita o formato natural dos fios?</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/06-mapeamento-tres-pontos.png" alt="Exercício de marcação" loading="lazy">
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Não tenha pressa nessa etapa. Uma marcação bem feita evita grande parte dos erros durante a retirada dos pelos.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 7 — PINÇA =================== -->
+<section class="part" id="parte-7">
+  <p class="part__eyebrow">Parte 7</p>
+  <h2 class="part__title">Técnica com pinça</h2>
+</section>
+
+<article class="chapter" id="cap-28" data-num="28">
+  <p class="chapter__eyebrow">Capítulo 28</p>
+  <h1 class="chapter__title">Técnica com pinça</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A pinça é uma das ferramentas mais importantes no design de sobrancelhas. Ela permite retirar pelos com precisão e controlar melhor o acabamento.</p>
+    <p>Antes de começar, higienize a pele, penteie os fios, faça a marcação, avalie os excessos, mostre o desenho para a cliente quando necessário e apoie bem a pele durante a retirada.</p>
+    <p>A retirada deve ser feita no sentido do crescimento do pelo, para reduzir desconforto e evitar quebra. Remova primeiro os pelos claramente fora da marcação.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/09-tecnica-com-pinca.png" alt="Técnica com pinça" loading="lazy">
+      <figcaption>Fig. 16 — Precisão acima de velocidade.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Nunca comece retirando muitos pelos de uma vez. Trabalhe com calma e revise o desenho durante o procedimento.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-29" data-num="29">
+  <p class="chapter__eyebrow">Capítulo 29</p>
+  <h1 class="chapter__title">Passo a passo da pinça</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A técnica com pinça exige precisão, paciência e controle visual.</p>
+    <p>Passo a passo: higienize a região, penteie os fios, faça a marcação, estique levemente a pele, posicione a pinça próximo à raiz, retire no sentido do crescimento, comece pelos excessos evidentes, evite fios dentro do desenho, revise com a cliente olhando para frente e finalize com escovinha.</p>
+    <p>Mesmo quando a cera fria for usada, a pinça continua essencial para acabamento.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/09-tecnica-com-pinca.png" alt="Passo a passo da pinça" loading="lazy">
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>A cada pequena área finalizada, pare e observe. O excesso de confiança pode levar à retirada de fios importantes.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-30" data-num="30">
+  <p class="chapter__eyebrow">Capítulo 30</p>
+  <h1 class="chapter__title">Erros com a pinça</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A pinça oferece precisão, mas também exige cuidado. Um erro pequeno pode criar falhas difíceis de corrigir imediatamente.</p>
+    <p>Erros comuns: retirar pelos dentro da marcação, afinar demais, cavar o início, subir excessivamente o arco, encurtar a cauda, retirar muitos fios da parte superior sem necessidade, não observar os dois lados e tentar corrigir assimetria removendo cada vez mais pelos.</p>
+    <p>A melhor forma de evitar esses erros é trabalhar aos poucos.</p>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Tentar igualar os dois lados retirando pelos sem parar aumenta o risco de afinar ou deformar a sobrancelha.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 8 — CERA FRIA =================== -->
+<section class="part" id="parte-8">
+  <p class="part__eyebrow">Parte 8</p>
+  <h2 class="part__title">Técnica com cera fria</h2>
+</section>
+
+<article class="chapter" id="cap-31" data-num="31">
+  <p class="chapter__eyebrow">Capítulo 31</p>
+  <h1 class="chapter__title">Técnica com cera fria</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/10-tecnica-com-cera-fria.png" alt="Técnica com cera fria" loading="lazy">
+    <figcaption>Fig. 17 — A cera fria é complemento, não substituta da pinça.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>A cera fria pode ser usada como técnica complementar no design de sobrancelhas. Ela ajuda a remover excessos de forma mais rápida, principalmente em áreas externas ao desenho.</p>
+    <p>No design profissional, a cera fria não substitui a pinça. A pinça continua necessária para acabamento, precisão e remoção de pelos específicos.</p>
+    <p>A cera fria pode ser usada entre as sobrancelhas, acima da sobrancelha, na área externa próxima à cauda com cuidado e em pelos finos fora da marcação.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Use apenas em áreas seguras e com produto próprio para uso facial. Nunca aplique sobre pele lesionada, irritada ou sensibilizada.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-32" data-num="32">
+  <p class="chapter__eyebrow">Capítulo 32</p>
+  <h1 class="chapter__title">Contraindicações da cera</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A técnica com cera fria exige atenção especial à pele. Algumas condições aumentam o risco de irritação, lesão ou desconforto.</p>
+    <p>Evite usar cera fria quando houver pele irritada, feridas, cortes, inflamações, descamação, queimadura solar, sensibilidade intensa, alergia conhecida à cera, uso recente de ácidos, peeling químico recente, laser recente, procedimentos dermatológicos na região ou pele muito fina.</p>
+    <p>Nesses casos, opte por pinça, adie o atendimento ou oriente a cliente a aguardar.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/11-zonas-seguras-cera-fria.png" alt="Zonas seguras da cera" loading="lazy">
+      <figcaption>Fig. 18 — Quando a pele não está íntegra, a cera fica de fora.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Quando a pele não está íntegra, a cera não deve ser usada. Segurança vale mais do que rapidez.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-33" data-num="33">
+  <p class="chapter__eyebrow">Capítulo 33</p>
+  <h1 class="chapter__title">Aplicação da cera fria</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A aplicação correta da cera fria ajuda a tornar o procedimento mais seguro e confortável.</p>
+    <p>Passo a passo: higienize a pele, seque bem, faça a marcação, corte a tira em tamanho pequeno, aqueça entre as mãos se o fabricante orientar, aplique apenas fora do desenho, pressione suavemente no sentido do crescimento, estique a pele, retire com movimento firme no sentido contrário, descarte a tira usada, finalize com pinça e aplique produto calmante se necessário.</p>
+    <p>Nunca passe a cera repetidas vezes no mesmo local.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/10-tecnica-com-cera-fria.png" alt="Aplicação da cera fria" loading="lazy">
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Use tiras pequenas. Quanto menor e mais controlada a área, menor o risco de remover pelos importantes.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-34" data-num="34">
+  <p class="chapter__eyebrow">Capítulo 34</p>
+  <h1 class="chapter__title">Zonas seguras da cera</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/11-zonas-seguras-cera-fria.png" alt="Zonas seguras para aplicação de cera" loading="lazy">
+    <figcaption>Fig. 19 — Áreas seguras vs. áreas de atenção: o mapa da cera fria facial.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>A cera fria deve ser usada apenas em áreas onde a pele permite maior segurança e onde não há risco de comprometer o desenho.</p>
+    <p>Áreas geralmente indicadas: centro entre as sobrancelhas, excesso acima da linha superior, pelos fora do desenho na parte externa e região próxima à cauda com cuidado.</p>
+    <p>Áreas de atenção: pálpebra móvel, região muito próxima aos olhos, pele fina ou sensibilizada e área abaixo da sobrancelha, especialmente em clientes sensíveis.</p>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Usar uma tira grande demais perto da sobrancelha aumenta o risco de retirar pelos que fazem parte do desenho.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 9 — ACABAMENTO =================== -->
+<section class="part" id="parte-9">
+  <p class="part__eyebrow">Parte 9</p>
+  <h2 class="part__title">Acabamento e correção</h2>
+</section>
+
+<article class="chapter" id="cap-35" data-num="35">
+  <p class="chapter__eyebrow">Capítulo 35</p>
+  <h1 class="chapter__title">Corte dos fios</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O corte dos fios serve para alinhar e melhorar o acabamento da sobrancelha. Ele deve ser feito apenas quando necessário.</p>
+    <p>Nem toda cliente precisa cortar os fios. Em alguns casos, basta pentear e organizar. Cortar demais pode criar buracos, deixar fios espetados ou comprometer o volume natural.</p>
+    <p>Passo a passo: penteie os fios para cima, observe pontas que ultrapassam muito o desenho, corte apenas o excesso das pontinhas, penteie no sentido natural, avalie antes de cortar mais e repita com cuidado se necessário.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/12-corte-e-acabamento-dos-fios.png" alt="Corte e acabamento dos fios" loading="lazy">
+      <figcaption>Fig. 20 — Cortar é ajustar excessos, não nivelar tudo.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Cortar não é nivelar tudo. O objetivo é ajustar excessos, não reduzir todo o volume.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-36" data-num="36">
+  <p class="chapter__eyebrow">Capítulo 36</p>
+  <h1 class="chapter__title">Correção de falhas</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Falhas nas sobrancelhas são comuns e podem ter várias causas. A profissional precisa explicar com clareza que nem toda falha será corrigida imediatamente.</p>
+    <p>A correção pode envolver preservar fios que estão crescendo, evitar retirar pelos próximos à falha, orientar tempo de recuperação, usar maquiagem temporária, aplicar henna para preenchimento visual e planejar manutenções periódicas.</p>
+    <p>Evite prometer crescimento ou resultado definitivo. O papel da profissional é cuidar do desenho, preservar fios e acompanhar evolução.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/18-antes-e-depois-ilustrativo.png" alt="Antes e depois" loading="lazy">
+    </figure>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>Em sobrancelhas falhadas, muitas vezes preservar é a técnica principal.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 10 — HENNA =================== -->
+<section class="part" id="parte-10">
+  <p class="part__eyebrow">Parte 10</p>
+  <h2 class="part__title">Henna</h2>
+</section>
+
+<article class="chapter" id="cap-37" data-num="37">
+  <p class="chapter__eyebrow">Capítulo 37</p>
+  <h1 class="chapter__title">Henna tradicional</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A henna para sobrancelhas é usada para preencher visualmente falhas, destacar o formato e valorizar o design. Ela colore temporariamente a pele e os fios, criando efeito de sobrancelha mais definida.</p>
+    <p>Antes de aplicar, avalie tipo de pele, cor dos fios, cor do cabelo, intensidade desejada, falhas, histórico de alergias e sensibilidade.</p>
+    <p>A henna deve ser aplicada após o design e dentro da marcação. O resultado precisa ser harmônico, sem deixar o início muito escuro ou artificial.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/14-preparo-da-henna.png" alt="Preparo da henna" loading="lazy">
+      <figcaption>Fig. 21 — A henna valoriza o design. Ela não consegue esconder uma marcação mal feita.</figcaption>
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Oriente teste de sensibilidade antes da aplicação, principalmente em clientes novas ou com histórico de alergias.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-38" data-num="38">
+  <p class="chapter__eyebrow">Capítulo 38</p>
+  <h1 class="chapter__title">Preparo da henna</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>O preparo correto da henna influencia na cor, fixação e acabamento. Cada marca pode ter orientação própria, por isso a profissional deve seguir as instruções do fabricante.</p>
+    <p>Verifique validade, use recipiente limpo, misture pequenas quantidades, evite desperdício, busque textura cremosa e homogênea, não deixe a mistura muito líquida nem grossa demais, mantenha longe dos olhos e use aplicador limpo.</p>
+    <p>A cor deve ser escolhida conforme tom da pele, fios e desejo da cliente. Em caso de dúvida, prefira resultado suave.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/14-preparo-da-henna.png" alt="Preparo da henna" loading="lazy">
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>É mais fácil intensificar aos poucos do que corrigir uma henna escura demais.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-39" data-num="39">
+  <p class="chapter__eyebrow">Capítulo 39</p>
+  <h1 class="chapter__title">Aplicação da henna</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/15-aplicacao-de-henna.png" alt="Aplicação da henna" loading="lazy">
+    <figcaption>Fig. 22 — A henna acompanha o desenho, nunca o ultrapassa.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>A aplicação da henna deve ser feita com calma, dentro do desenho marcado e respeitando o formato definido no design.</p>
+    <p>Passo a passo: finalize o design, limpe a região, confira se a pele está seca, prepare a henna conforme o fabricante, aplique com pincel fino, comece pelo corpo e cauda, não ultrapasse a marcação, corrija bordas com cotonete, deixe agir pelo tempo indicado, remova com cuidado e finalize.</p>
+    <p>O início da sobrancelha deve receber atenção especial para não pesar a expressão.</p>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>A henna deve valorizar o design, não esconder uma marcação mal feita.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-40" data-num="40">
+  <p class="chapter__eyebrow">Capítulo 40</p>
+  <h1 class="chapter__title">Remoção e acabamento da henna</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A remoção da henna deve ser feita com cuidado para preservar o desenho e evitar manchas indesejadas. O tempo de pausa pode variar conforme fabricante, tipo de pele e intensidade desejada.</p>
+    <p>Depois do tempo indicado, remova com algodão, cotonete ou gaze levemente umedecida, sempre com movimentos suaves. Evite esfregar a região.</p>
+    <p>Observe se as bordas ficaram limpas e se o início está natural. Caso alguma área tenha ficado muito marcada, suavize com cuidado.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/15-aplicacao-de-henna.png" alt="Remoção da henna" loading="lazy">
+    </figure>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Deixar a henna agir por tempo demais pode escurecer excessivamente e deixar a sobrancelha artificial.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-41" data-num="41">
+  <p class="chapter__eyebrow">Capítulo 41</p>
+  <h1 class="chapter__title">Henna efeito degradê</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/16-henna-efeito-degrade.png" alt="Henna efeito degradê" loading="lazy">
+    <figcaption>Fig. 23 — O degradê bonito quase não parece técnica. Apenas suaviza.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>O efeito degradê deixa o início da sobrancelha mais suave e o restante mais definido. Essa técnica é muito procurada porque entrega um resultado mais natural e elegante.</p>
+    <p>A ideia é evitar que a sobrancelha fique quadrada ou marcada demais no início. Para isso, a profissional controla o tempo de ação da henna em cada região.</p>
+    <p>Aplique no corpo e cauda, use camada mais leve no início, remova primeiro a henna do início, deixe corpo e cauda por mais tempo e avalie se o início ficou suave.</p>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>O degradê bonito é aquele que quase não parece técnica. Ele apenas deixa o início mais leve e natural.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-42" data-num="42">
+  <p class="chapter__eyebrow">Capítulo 42</p>
+  <h1 class="chapter__title">Erros na henna</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A henna valoriza o design, mas também pode evidenciar erros quando aplicada sem cuidado.</p>
+    <p>Erros comuns: escolher cor escura demais, não respeitar tom da pele e dos fios, aplicar fora da marcação, deixar o início quadrado, não corrigir bordas, usar textura muito líquida, não orientar cuidados e prometer durabilidade igual para todas.</p>
+    <p>A durabilidade varia conforme tipo de pele, oleosidade, cuidados, produtos usados no rosto e rotina da cliente.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/16-henna-efeito-degrade.png" alt="Erros na henna" loading="lazy">
+    </figure>
+    <aside class="callout callout--erro">
+      <p class="callout__label">Erro comum</p>
+      <p>Tentar corrigir uma sobrancelha mal desenhada usando mais henna. A henna destaca o formato, inclusive seus erros.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 11 — PÓS E ATENDIMENTO =================== -->
+<section class="part" id="parte-11">
+  <p class="part__eyebrow">Parte 11</p>
+  <h2 class="part__title">Pós-procedimento e atendimento</h2>
+</section>
+
+<article class="chapter" id="cap-43" data-num="43">
+  <p class="chapter__eyebrow">Capítulo 43</p>
+  <h1 class="chapter__title">Cuidados pós-procedimento</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <figure class="chapter__figure chapter__figure--top">
+    <img src="imagens-apostila/17-cuidados-pos-procedimento-atendimento.png" alt="Cuidados pós-procedimento" loading="lazy">
+    <figcaption>Fig. 24 — Orientações claras evitam irritação e fidelizam pela confiança.</figcaption>
+  </figure>
+  <div class="chapter__body">
+    <p>Após o procedimento, a cliente precisa receber orientações claras para preservar o resultado e evitar irritações.</p>
+    <p>Oriente evitar molhar excessivamente nas primeiras horas, esfregar as sobrancelhas, usar produtos oleosos sobre a henna, fazer esfoliação na região, usar ácidos logo após, passar maquiagem pesada no mesmo dia e exposição solar intensa.</p>
+    <p>Explique que a henna é temporária e a duração varia de pessoa para pessoa.</p>
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Não esfregar, não usar óleo, evitar ácidos, higienizar com delicadeza e seguir as orientações da profissional.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-44" data-num="44">
+  <p class="chapter__eyebrow">Capítulo 44</p>
+  <h1 class="chapter__title">Mensagem para cliente</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Enviar uma mensagem após o atendimento ajuda a reforçar os cuidados e transmite profissionalismo.</p>
+    <p><em>Modelo de mensagem:</em></p>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Modelo pronto</p>
+      <p>Olá, tudo bem? Passando para te lembrar dos cuidados com suas sobrancelhas após o procedimento. Evite molhar excessivamente, esfregar, usar produtos oleosos, ácidos ou esfoliantes na região nas próximas horas. Higienize o rosto com delicadeza e evite atrito direto nas sobrancelhas.</p>
+      <p>A henna tem duração temporária e pode variar conforme seu tipo de pele e seus cuidados diários. Qualquer dúvida, estou à disposição. Obrigada pela confiança!</p>
+    </aside>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Personalize a mensagem com o nome da cliente e o procedimento realizado.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-45" data-num="45">
+  <p class="chapter__eyebrow">Capítulo 45</p>
+  <h1 class="chapter__title">Atendimento ao cliente</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Um bom atendimento começa antes da técnica. A forma como a cliente é recebida influencia diretamente na confiança que ela sente.</p>
+    <p>Cumprimente com simpatia, explique o procedimento, pergunte sobre expectativas, fale com clareza, evite prometer resultados irreais, mostre o desenho antes de remover pelos quando necessário, oriente sobre manutenção e mantenha postura profissional do início ao fim.</p>
+    <p>A cliente precisa sentir que está sendo ouvida, especialmente se já teve experiências anteriores ruins.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/17-cuidados-pos-procedimento-atendimento.png" alt="Atendimento ao cliente" loading="lazy">
+    </figure>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>Atendimento é técnica também. Uma cliente bem orientada entende o processo, confia mais e valoriza seu trabalho.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-46" data-num="46">
+  <p class="chapter__eyebrow">Capítulo 46</p>
+  <h1 class="chapter__title">Fotos e portfólio</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>As fotos de antes e depois ajudam a divulgar o trabalho, acompanhar evolução e mostrar resultados reais. Porém, devem ser feitas com autorização da cliente.</p>
+    <p>Use boa iluminação, fotografe antes e depois no mesmo ângulo, evite filtros que alterem pele ou cor da henna, mantenha fundo limpo, mostre resultado real, peça autorização por escrito e não exponha a cliente sem consentimento.</p>
+    <p>O portfólio deve valorizar naturalidade, limpeza e harmonia.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/18-antes-e-depois-ilustrativo.png" alt="Antes e depois para portfólio" loading="lazy">
+    </figure>
+    <aside class="callout callout--atencao">
+      <p class="callout__label">Atenção</p>
+      <p>Imagem de cliente é dado pessoal. Use apenas com autorização clara.</p>
+    </aside>
+    <p><a href="#autorizacao">→ Modelo de termo de autorização de imagem</a></p>
+  </div>
+</article>
+
+<!-- =================== PARTE 12 — NEGÓCIO =================== -->
+<section class="part" id="parte-12">
+  <p class="part__eyebrow">Parte 12</p>
+  <h2 class="part__title">Negócio e carreira</h2>
+</section>
+
+<article class="chapter" id="cap-47" data-num="47">
+  <p class="chapter__eyebrow">Capítulo 47</p>
+  <h1 class="chapter__title">Precificação</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Precificar é calcular o valor do seu serviço considerando custo, tempo, técnica e posicionamento profissional.</p>
+    <p>Considere valor dos materiais, tempo de atendimento, custo do espaço, energia, limpeza, descartáveis, experiência profissional, região onde atende, qualidade do serviço e margem de lucro desejada.</p>
+    <p><em>Exemplo simples:</em> custo de materiais + custo do tempo + despesas + lucro = preço final.</p>
+    <p>Não cobre apenas pelo produto usado. Você também cobra conhecimento, segurança, atendimento e resultado.</p>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Se você cobra barato demais, pode ter dificuldade para repor materiais, melhorar seu espaço e valorizar sua profissão.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-48" data-num="48">
+  <p class="chapter__eyebrow">Capítulo 48</p>
+  <h1 class="chapter__title">Combos e fidelização</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Criar combos ajuda a aumentar o ticket médio e incentivar a cliente a retornar.</p>
+    <p>Sugestões: design simples, design com henna, manutenção de design, design com cera fria e pinça, pacote mensal de manutenção e combo sobrancelhas com outro serviço do studio, se houver.</p>
+    <p>A fidelização acontece quando a cliente gosta do resultado e da experiência. Pontualidade, higiene, explicação clara e cuidado no pós-atendimento fazem diferença.</p>
+    <aside class="callout callout--dica">
+      <p class="callout__label">Dica da Lais</p>
+      <p>Cliente fiel não volta só pela sobrancelha. Ela volta porque confia em você.</p>
+    </aside>
+  </div>
+</article>
+
+<!-- =================== PARTE 13 — PRÁTICA =================== -->
+<section class="part" id="parte-13">
+  <p class="part__eyebrow">Parte 13</p>
+  <h2 class="part__title">Prática guiada</h2>
+</section>
+
+<article class="chapter" id="cap-49" data-num="49">
+  <p class="chapter__eyebrow">Capítulo 49</p>
+  <h1 class="chapter__title">Checklist do atendimento completo</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Use este checklist como guia durante seus primeiros atendimentos. Marque cada etapa concluída — o estado fica salvo automaticamente neste navegador.</p>
+
+    <h3 style="font-family:var(--font-display); font-size:22px; margin:32px 0 12px; color:var(--brand-deep)">Antes do atendimento</h3>
+    <ul class="check-list" data-storage="checklist-antes">
+      <li><label><input type="checkbox"> Bancada higienizada</label></li>
+      <li><label><input type="checkbox"> Materiais separados</label></li>
+      <li><label><input type="checkbox"> Produtos dentro da validade</label></li>
+      <li><label><input type="checkbox"> Descartáveis disponíveis</label></li>
+      <li><label><input type="checkbox"> Ficha de anamnese preenchida</label></li>
+      <li><label><input type="checkbox"> Cliente acomodada</label></li>
+      <li><label><input type="checkbox"> Pele avaliada</label></li>
+    </ul>
+
+    <h3 style="font-family:var(--font-display); font-size:22px; margin:32px 0 12px; color:var(--brand-deep)">Durante o atendimento</h3>
+    <ul class="check-list" data-storage="checklist-durante">
+      <li><label><input type="checkbox"> Higienização da região</label></li>
+      <li><label><input type="checkbox"> Análise do rosto e dos fios</label></li>
+      <li><label><input type="checkbox"> Marcação dos pontos</label></li>
+      <li><label><input type="checkbox"> Confirmação do desenho</label></li>
+      <li><label><input type="checkbox"> Retirada com técnica adequada</label></li>
+      <li><label><input type="checkbox"> Acabamento com cuidado</label></li>
+      <li><label><input type="checkbox"> Henna, se indicada e autorizada</label></li>
+    </ul>
+
+    <h3 style="font-family:var(--font-display); font-size:22px; margin:32px 0 12px; color:var(--brand-deep)">Depois do atendimento</h3>
+    <ul class="check-list" data-storage="checklist-depois">
+      <li><label><input type="checkbox"> Orientações pós-procedimento</label></li>
+      <li><label><input type="checkbox"> Foto, se autorizada</label></li>
+      <li><label><input type="checkbox"> Descarte correto</label></li>
+      <li><label><input type="checkbox"> Limpeza da bancada</label></li>
+      <li><label><input type="checkbox"> Agendamento de manutenção, se necessário</label></li>
+    </ul>
+
+    <aside class="callout callout--checklist">
+      <p class="callout__label">Checklist</p>
+      <p>Seguir etapas evita improvisos e aumenta a segurança do procedimento.</p>
+    </aside>
+  </div>
+</article>
+
+<article class="chapter" id="cap-50" data-num="50">
+  <p class="chapter__eyebrow">Capítulo 50</p>
+  <h1 class="chapter__title">Prática guiada</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>A prática guiada é o momento de aplicar o que foi aprendido durante o curso. A aluna deve seguir as etapas com calma e pedir orientação sempre que tiver dúvida.</p>
+    <p><strong>Etapas:</strong> preparar bancada, higienizar mãos, avaliar cliente ou modelo, preencher anamnese, observar rosto e sobrancelhas, fazer marcação, conferir simetria visual, escolher técnica adequada, executar pinça ou cera fria com supervisão, aparar fios se necessário, aplicar henna se indicado, finalizar e orientar a cliente.</p>
+    <p>A professora observa postura, higiene, marcação, controle das mãos e comunicação.</p>
+    <figure class="chapter__figure">
+      <img src="imagens-apostila/06-mapeamento-tres-pontos.png" alt="Prática guiada" loading="lazy">
+      <figcaption>Fig. 25 — Primeiro segurança, depois velocidade.</figcaption>
+    </figure>
+    <aside class="callout callout--pratica">
+      <p class="callout__label">Na prática</p>
+      <p>Não tente ser rápida no início. Primeiro busque segurança, depois velocidade.</p>
+    </aside>
+    <div class="btn-row">
+      <a href="#anamnese" class="btn">Ficha de anamnese</a>
+      <a href="#revisao" class="btn btn--ghost">Amostra de avaliação</a>
+      <a href="#final" class="btn btn--ghost">Avaliação final</a>
+    </div>
+  </div>
+</article>
+
+<!-- =================== APÊNDICES =================== -->
+<section class="part" id="apendices">
+  <p class="part__eyebrow">Apêndices</p>
+  <h2 class="part__title">Fichas, exercícios e certificado</h2>
+</section>
+
+<section class="appendix" id="anamnese">
+  <p class="chapter__eyebrow">Apêndice A</p>
+  <h1 class="chapter__title">Ficha de anamnese</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <p>Preencha ou imprima esta ficha antes do atendimento. As respostas ficam apenas neste dispositivo (não são enviadas a lugar nenhum).</p>
+
+  <form class="form-grid" id="anamneseForm" data-storage="anamnese">
+    <div class="form-field"><label>Nome</label><input type="text" name="nome"></div>
+    <div class="form-field"><label>Telefone</label><input type="tel" name="telefone"></div>
+    <div class="form-field"><label>Data</label><input type="date" name="data"></div>
+    <div class="form-field"><label>Procedimento</label><input type="text" name="procedimento"></div>
+
+    <div class="form-field">
+      <label>Possui alergia a algum cosmético?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="alergia" value="sim"> Sim</label>
+        <label><input type="radio" name="alergia" value="nao"> Não</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Já teve reação com henna, cera ou maquiagem?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="reacao" value="sim"> Sim</label>
+        <label><input type="radio" name="reacao" value="nao"> Não</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Está usando ácidos no rosto?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="acidos" value="sim"> Sim</label>
+        <label><input type="radio" name="acidos" value="nao"> Não</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Fez peeling, laser ou procedimento dermatológico recentemente?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="peeling" value="sim"> Sim</label>
+        <label><input type="radio" name="peeling" value="nao"> Não</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>A pele está irritada, machucada ou descamando?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="pele" value="sim"> Sim</label>
+        <label><input type="radio" name="pele" value="nao"> Não</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Autoriza foto de antes e depois?</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="foto" value="sim"> Sim</label>
+        <label><input type="radio" name="foto" value="nao"> Não</label>
+      </div>
+    </div>
+
+    <div class="form-field"><label>Observações</label><textarea name="obs" rows="3"></textarea></div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px;">
+      <div><div class="signature-line"></div><div style="font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:var(--text-muted); margin-top:8px;">Assinatura da cliente</div></div>
+      <div><div class="signature-line"></div><div style="font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:var(--text-muted); margin-top:8px;">Assinatura da profissional</div></div>
+    </div>
+  </form>
+
+  <aside class="callout callout--atencao" style="margin-top:32px;">
+    <p class="callout__label">Atenção</p>
+    <p>Em caso de alergia, lesão ou sensibilidade, adapte ou adie o procedimento.</p>
+  </aside>
+
+  <div class="btn-row">
+    <button class="btn" onclick="window.print()">Imprimir ficha</button>
+    <button class="btn btn--ghost" onclick="if(confirm('Limpar formulário?')){document.getElementById('anamneseForm').reset();localStorage.removeItem('lais-form-anamnese');}">Limpar</button>
+  </div>
+</section>
+
+<section class="appendix" id="autorizacao">
+  <p class="chapter__eyebrow">Apêndice B</p>
+  <h1 class="chapter__title">Termo e autorização de imagem</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <div class="chapter__body">
+    <p>Eu, ____________________________________________, autorizo a profissional Lais Marques / Studio da Beleza a registrar imagens de antes e depois do procedimento de design de sobrancelhas realizado em ____ / ____ / ______.</p>
+
+    <p><strong>Autorizo o uso das imagens para:</strong></p>
+    <ul style="list-style:none; padding-left:0;">
+      <li>☐ Acompanhamento profissional</li>
+      <li>☐ Portfólio</li>
+      <li>☐ Redes sociais</li>
+      <li>☐ Material de divulgação</li>
+    </ul>
+
+    <p>Estou ciente de que posso solicitar que minha imagem não seja divulgada publicamente.</p>
+    <p>Também declaro que informei corretamente minhas condições de pele, alergias, procedimentos recentes e uso de produtos que possam interferir no atendimento.</p>
+
+    <div style="display:grid; grid-template-columns:1fr; gap:24px; margin-top:32px;">
+      <div><div class="signature-line"></div><div style="font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:var(--text-muted); margin-top:8px;">Assinatura da cliente</div></div>
+      <div><div class="signature-line"></div><div style="font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:var(--text-muted); margin-top:8px;">Assinatura da profissional</div></div>
+      <div><div class="signature-line"></div><div style="font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:var(--text-muted); margin-top:8px;">Data</div></div>
+    </div>
+
+    <aside class="callout callout--atencao" style="margin-top:32px;">
+      <p class="callout__label">Atenção</p>
+      <p>A imagem da cliente só deve ser usada publicamente com autorização.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="appendix" id="modulos">
+  <p class="chapter__eyebrow">Apêndice C</p>
+  <h1 class="chapter__title">Exercícios por módulo</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <p>Exercícios e atividades práticas organizados por módulo do curso. As questões trazem gabarito comentado para você aprender mesmo quando errar. As respostas das atividades ficam salvas neste dispositivo.</p>
+  <div id="modulesRoot"></div>
+</section>
+
+<section class="appendix" id="marcacao-pratica">
+  <p class="chapter__eyebrow">Apêndice D</p>
+  <h1 class="chapter__title">Exercício prático especial — Marcação dos três pontos</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+
+  <aside class="callout callout--dica">
+    <p class="callout__label">Objetivo</p>
+    <p>Treinar a identificação do início, ponto alto e final da sobrancelha antes da retirada dos pelos.</p>
+  </aside>
+
+  <p style="margin-top:24px"><strong>Instrução:</strong> observe o rosto impresso ou imagem fornecida pela professora. Com lápis, marque os três pontos principais e use as etapas abaixo como guia.</p>
+
+  <figure class="chapter__figure">
+    <img src="imagens-apostila/06-mapeamento-tres-pontos.png" alt="Mapeamento dos três pontos para exercício prático" loading="lazy">
+    <figcaption>Referência visual: estrutura de mapeamento dos três pontos.</figcaption>
+  </figure>
+
+  <h3 style="font-family:var(--font-display); font-size:24px; margin:48px 0 8px; color:var(--brand-deep);">Etapas</h3>
+  <p style="font-size:13px; color:var(--text-muted); margin:0 0 16px;">Marque cada etapa concluída — o estado é salvo automaticamente.</p>
+  <ol class="marcacao-steps" id="marcacaoSteps" data-storage="marcacao-etapas">
+    <li><label><input type="checkbox"> Marque o ponto inicial da sobrancelha.</label></li>
+    <li><label><input type="checkbox"> Marque o ponto alto ou arco.</label></li>
+    <li><label><input type="checkbox"> Marque o ponto final ou cauda.</label></li>
+    <li><label><input type="checkbox"> Desenhe uma linha superior suave.</label></li>
+    <li><label><input type="checkbox"> Desenhe uma linha inferior suave.</label></li>
+    <li><label><input type="checkbox"> Circule apenas os pelos que estariam fora da marcação.</label></li>
+    <li><label><input type="checkbox"> Compare os dois lados e avalie se estão visualmente equilibrados.</label></li>
+  </ol>
+
+  <div class="activity" data-storage="marcacao-reflexao" style="margin-top:48px;">
+    <p class="activity__label">Perguntas de reflexão</p>
+    <p class="activity__intro">Responda com calma. Essas respostas treinam o olhar técnico que vem antes da mão técnica.</p>
+    <div class="activity__block">
+      <div class="activity__field">
+        <label>1. A sobrancelha respeita o formato natural dos fios?</label>
+        <textarea name="ref1" rows="2"></textarea>
+      </div>
+      <div class="activity__field">
+        <label>2. A cauda ficou curta, longa ou equilibrada?</label>
+        <textarea name="ref2" rows="2"></textarea>
+      </div>
+      <div class="activity__field">
+        <label>3. O início ficou muito fechado, muito afastado ou adequado?</label>
+        <textarea name="ref3" rows="2"></textarea>
+      </div>
+      <div class="activity__field">
+        <label>4. O que você corrigiria antes de iniciar a retirada dos pelos?</label>
+        <textarea name="ref4" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="window.print()">Imprimir exercício</button>
+  </div>
+</section>
+
+<section class="appendix" id="revisao">
+  <p class="chapter__eyebrow">Apêndice E</p>
+  <h1 class="chapter__title">Amostra de avaliação — 5 questões</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <p>Cinco questões para revisar os conceitos centrais antes da avaliação final completa. Responda todas, clique em <em>Encerrar avaliação</em> e veja sua nota — o gabarito comentado aparece em seguida.</p>
+  <ol class="quiz" id="revisaoQuiz"></ol>
+  <div class="quiz-score" id="revisaoScore" hidden>
+    <div class="quiz-score__value" id="revisaoScoreValue">0 / 5</div>
+    <div class="quiz-score__meta" id="revisaoScoreMeta"></div>
+    <div class="quiz-score__label">Pontuação</div>
+  </div>
+</section>
+
+<section class="appendix" id="final">
+  <p class="chapter__eyebrow">Apêndice F</p>
+  <h1 class="chapter__title">Avaliação final</h1>
+  <div class="fio-lais chapter__fio"><span class="fio-lais__dot"></span></div>
+  <p>Vinte questões para encerrar o curso. Responda todas com calma e clique em <em>Encerrar avaliação</em> ao terminar. Sua nota de 0 a 10 e as explicações de cada questão aparecem em seguida.</p>
+  <ol class="quiz" id="finalQuiz"></ol>
+  <div class="quiz-score" id="finalScore" hidden>
+    <div class="quiz-score__value" id="finalScoreValue">0 / 20</div>
+    <div class="quiz-score__meta" id="finalScoreMeta"></div>
+    <div class="quiz-score__label">Pontuação final</div>
+  </div>
+
+  <details class="gabarito">
+    <summary>Ver gabarito completo</summary>
+    <div>
+      <h3 style="font-family:var(--font-display); font-size:18px; margin:0 0 8px; color:var(--brand-deep);">Revisão</h3>
+      <div class="gabarito-grid" id="gabaritoRevisao"></div>
+      <h3 style="font-family:var(--font-display); font-size:18px; margin:24px 0 8px; color:var(--brand-deep);">Avaliação final</h3>
+      <div class="gabarito-grid" id="gabaritoFinal"></div>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<nav class="rail" id="rail" aria-label="Navegação rápida"></nav>
+
+<button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Fechar">×</button>
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" id="lightboxImg">
+</div>
+
+<script>
+/* ============================================
+   Interatividade — vanilla, sem dependências
+   ============================================ */
+
+const CHAPTERS = [
+  { num:1, title:'Boas-vindas' }, { num:2, title:'Como usar esta apostila' },
+  { num:3, title:'Sumário' }, { num:4, title:'Objetivos do curso' },
+  { num:5, title:'O mercado do design de sobrancelhas' }, { num:6, title:'O que é design de sobrancelhas' },
+  { num:7, title:'Anatomia da sobrancelha' }, { num:8, title:'Crescimento dos fios' },
+  { num:9, title:'Falhas e assimetrias' }, { num:10, title:'Introdução ao visagismo' },
+  { num:11, title:'Formatos de rosto' }, { num:12, title:'Tipos de sobrancelhas' },
+  { num:13, title:'Expressão e personalidade' }, { num:14, title:'Avaliação da cliente' },
+  { num:15, title:'Anamnese' }, { num:16, title:'Contraindicações' },
+  { num:17, title:'Biossegurança' }, { num:18, title:'Higiene das mãos e EPIs' },
+  { num:19, title:'Descarte e esterilização' }, { num:20, title:'Materiais profissionais' },
+  { num:21, title:'Função de cada material' }, { num:22, title:'Preparação da bancada' },
+  { num:23, title:'Mapeamento facial' }, { num:24, title:'Os três pontos' },
+  { num:25, title:'Marcação com linha' }, { num:26, title:'Marcação com paquímetro' },
+  { num:27, title:'Exercício de marcação' }, { num:28, title:'Técnica com pinça' },
+  { num:29, title:'Passo a passo da pinça' }, { num:30, title:'Erros com a pinça' },
+  { num:31, title:'Técnica com cera fria' }, { num:32, title:'Contraindicações da cera' },
+  { num:33, title:'Aplicação da cera fria' }, { num:34, title:'Zonas seguras da cera' },
+  { num:35, title:'Corte dos fios' }, { num:36, title:'Correção de falhas' },
+  { num:37, title:'Henna tradicional' }, { num:38, title:'Preparo da henna' },
+  { num:39, title:'Aplicação da henna' }, { num:40, title:'Remoção e acabamento da henna' },
+  { num:41, title:'Henna efeito degradê' }, { num:42, title:'Erros na henna' },
+  { num:43, title:'Cuidados pós-procedimento' }, { num:44, title:'Mensagem para cliente' },
+  { num:45, title:'Atendimento ao cliente' }, { num:46, title:'Fotos e portfólio' },
+  { num:47, title:'Precificação' }, { num:48, title:'Combos e fidelização' },
+  { num:49, title:'Checklist do atendimento completo' }, { num:50, title:'Prática guiada' },
+];
+
+const PARTS = [
+  { title:'Boas-vindas e visão geral', start:1, end:5 },
+  { title:'Fundamentos do design', start:6, end:9 },
+  { title:'Visagismo aplicado', start:10, end:13 },
+  { title:'Avaliação e segurança', start:14, end:19 },
+  { title:'Materiais e organização', start:20, end:22 },
+  { title:'Mapeamento e marcação', start:23, end:27 },
+  { title:'Técnica com pinça', start:28, end:30 },
+  { title:'Técnica com cera fria', start:31, end:34 },
+  { title:'Acabamento e correção', start:35, end:36 },
+  { title:'Henna', start:37, end:42 },
+  { title:'Pós-procedimento e atendimento', start:43, end:46 },
+  { title:'Negócio e carreira', start:47, end:48 },
+  { title:'Prática guiada', start:49, end:50 },
+];
+
+const APPENDICES = [
+  { id:'anamnese', label:'Ficha de anamnese' },
+  { id:'autorizacao', label:'Termo de autorização' },
+  { id:'modulos', label:'Exercícios por módulo' },
+  { id:'marcacao-pratica', label:'Marcação dos três pontos' },
+  { id:'revisao', label:'Amostra de avaliação' },
+  { id:'final', label:'Avaliação final' },
+];
+
+const pad = n => String(n).padStart(2,'0');
+const $ = (s,c=document) => c.querySelector(s);
+const $$ = (s,c=document) => Array.from(c.querySelectorAll(s));
+const store = {
+  get: k => { try { return JSON.parse(localStorage.getItem('lais-'+k)) } catch(e) { return null } },
+  set: (k,v) => localStorage.setItem('lais-'+k, JSON.stringify(v)),
+  del: k => localStorage.removeItem('lais-'+k),
+};
+
+/* ---- Build sidebar ---- */
+function buildSidebar() {
+  const nav = $('#sidebarNav');
+  const read = new Set(store.get('read') || []);
+
+  PARTS.forEach((part, idx) => {
+    const partEl = document.createElement('div');
+    partEl.className = 'sidebar__part';
+    partEl.innerHTML = `<p class="sidebar__part-title">Parte ${idx+1} — ${part.title}</p><ul class="sidebar__chapters"></ul>`;
+    const list = partEl.querySelector('ul');
+    for (let n=part.start; n<=part.end; n++) {
+      const ch = CHAPTERS[n-1];
+      const li = document.createElement('li');
+      li.className = 'sidebar__chapter';
+      li.dataset.title = ch.title.toLowerCase();
+      li.dataset.num = pad(n);
+      if (read.has(pad(n))) li.dataset.read = 'true';
+      li.innerHTML = `<a href="#cap-${pad(n)}"><span class="sidebar__chapter-num"><span class="sidebar__chapter-num-text">${pad(n)}</span></span><span>${ch.title}</span></a>`;
+      list.appendChild(li);
+    }
+    nav.appendChild(partEl);
+  });
+
+  const appDiv = document.createElement('div');
+  appDiv.className = 'sidebar__part';
+  appDiv.innerHTML = `<p class="sidebar__part-title">Apêndices</p><ul class="sidebar__chapters"></ul>`;
+  const appList = appDiv.querySelector('ul');
+  APPENDICES.forEach((a, i) => {
+    const li = document.createElement('li');
+    li.className = 'sidebar__chapter';
+    li.dataset.title = a.label.toLowerCase();
+    li.innerHTML = `<a href="#${a.id}"><span class="sidebar__chapter-num"><span class="sidebar__chapter-num-text">${String.fromCharCode(65+i)}</span></span><span>${a.label}</span></a>`;
+    appList.appendChild(li);
+  });
+  nav.appendChild(appDiv);
+}
+
+/* ---- Build TOC inside cap-03 ---- */
+function buildTOC() {
+  const toc = $('#tocList');
+  CHAPTERS.forEach(ch => {
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="#cap-${pad(ch.num)}"><span><span class="toc-num">${pad(ch.num)}</span>${ch.title}</span></a>`;
+    toc.appendChild(li);
+  });
+}
+
+/* ---- Chapter nav (prev/next) ---- */
+function buildChapterNav() {
+  CHAPTERS.forEach((ch, i) => {
+    const article = document.getElementById('cap-' + pad(ch.num));
+    if (!article) return;
+    const footer = document.createElement('footer');
+    footer.className = 'chapter__footer';
+
+    const labelHTML = `
+      <label class="mark-read">
+        <input type="checkbox" data-cap="${pad(ch.num)}">
+        <span>Marcar como lido</span>
+      </label>`;
+
+    const prev = i > 0 ? `<a href="#cap-${pad(CHAPTERS[i-1].num)}">← Anterior</a>` : '';
+    const next = i < CHAPTERS.length-1 ? `<a href="#cap-${pad(CHAPTERS[i+1].num)}">Próximo →</a>` : `<a href="#anamnese">Apêndices →</a>`;
+    footer.innerHTML = labelHTML + `<div class="chapter-nav">${prev}${next}</div>`;
+    article.appendChild(footer);
+  });
+
+  // restore read
+  const read = new Set(store.get('read') || []);
+  $$('.mark-read input').forEach(cb => {
+    if (read.has(cb.dataset.cap)) cb.checked = true;
+    cb.addEventListener('change', () => {
+      if (cb.checked) read.add(cb.dataset.cap); else read.delete(cb.dataset.cap);
+      store.set('read', Array.from(read));
+      updateProgress();
+      const sideItem = $(`.sidebar__chapter[data-num="${cb.dataset.cap}"]`);
+      if (sideItem) {
+        if (cb.checked) sideItem.dataset.read = 'true';
+        else delete sideItem.dataset.read;
+      }
+    });
+  });
+}
+
+/* ---- Progress ---- */
+function updateProgress() {
+  const read = (store.get('read') || []).length;
+  $('#progressNum').textContent = read;
+  document.documentElement.style.setProperty('--progress-x', (read/50));
+}
+
+/* ---- Scroll-spy ---- */
+function scrollSpy() {
+  const sections = $$('article.chapter, section.appendix');
+  const links = $$('.sidebar__chapter a');
+  const map = new Map();
+  links.forEach(a => map.set(a.getAttribute('href').slice(1), a));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.remove('is-active'));
+        const a = map.get(e.target.id);
+        if (a) a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => io.observe(s));
+}
+
+/* ---- Reading progress bar ---- */
+function readingBar() {
+  const update = () => {
+    const h = document.documentElement;
+    const ratio = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+    const read = (store.get('read')||[]).length / 50;
+    document.documentElement.style.setProperty('--progress-x', Math.max(ratio, read));
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ---- Search filter ---- */
+function searchFilter() {
+  const input = $('#searchInput');
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    $$('.sidebar__chapter').forEach(li => {
+      const match = !q || li.dataset.title.includes(q);
+      li.hidden = !match;
+    });
+  });
+}
+
+/* ---- Theme toggle ---- */
+function themeToggle() {
+  const saved = store.get('theme');
+  const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (saved === null && prefersDark)) document.documentElement.dataset.theme = 'dark';
+  const sync = () => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    $('.icon-sun').hidden = isDark;
+    $('.icon-moon').hidden = !isDark;
+  };
+  sync();
+  $('#themeToggle').addEventListener('click', () => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    if (isDark) { delete document.documentElement.dataset.theme; store.set('theme','light'); }
+    else { document.documentElement.dataset.theme = 'dark'; store.set('theme','dark'); }
+    sync();
+  });
+}
+
+/* ---- Drawer menu (todos viewports) ---- */
+function menuDrawer() {
+  const toggle = $('#menuToggle');
+  const sidebar = $('#sidebar');
+  const bd = $('#sidebarBackdrop');
+  const close = () => { sidebar.classList.remove('is-open'); bd.classList.remove('is-visible'); };
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = sidebar.classList.toggle('is-open');
+    bd.classList.toggle('is-visible', open);
+  });
+  bd.addEventListener('click', close);
+  $$('.sidebar__chapter a').forEach(a => a.addEventListener('click', close));
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+}
+
+/* ---- Back to top ---- */
+function backToTop() {
+  const btn = $('#backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('is-visible', window.scrollY > 600);
+  }, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+/* ---- Lightbox ---- */
+function lightbox() {
+  const lb = $('#lightbox');
+  const lbImg = $('#lightboxImg');
+  $$('.chapter__figure img, .activity__image img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden','false');
+    });
+  });
+  const close = () => { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true'); };
+  $('#lightboxClose').addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+}
+
+/* ---- Persistent checkboxes (lists & forms) ---- */
+function persistChecklists() {
+  $$('[data-storage]').forEach(container => {
+    const key = container.dataset.storage;
+    const saved = store.get(key) || {};
+    const inputs = $$('input', container);
+    inputs.forEach((inp, i) => {
+      const id = inp.name || ('idx_' + i);
+      if (inp.type === 'checkbox' || inp.type === 'radio') {
+        if (saved[id] !== undefined) inp.checked = !!saved[id];
+      } else {
+        if (saved[id] !== undefined) inp.value = saved[id];
+      }
+      inp.addEventListener('change', save);
+      if (inp.type === 'text' || inp.type === 'tel' || inp.type === 'date' || inp.tagName === 'TEXTAREA') {
+        inp.addEventListener('input', save);
+      }
+    });
+    function save() {
+      const data = {};
+      inputs.forEach((inp, i) => {
+        const id = inp.name || ('idx_' + i);
+        if (inp.type === 'checkbox') data[id] = inp.checked;
+        else if (inp.type === 'radio') { if (inp.checked) data[id] = inp.value; }
+        else data[id] = inp.value;
+      });
+      store.set(key, data);
+    }
+  });
+}
+
+/* ---- Quizzes ---- */
+const REVISAO_QUESTIONS = [
+  {
+    q: 'O design de sobrancelhas deve respeitar principalmente:',
+    opts: ['A moda do momento.','A estrutura natural dos fios e a harmonia do rosto.','O mesmo desenho usado em todas as clientes.','Apenas o gosto da profissional.'],
+    correct: 1,
+    explain: 'O design profissional é personalizado e respeita limites naturais.'
+  },
+  {
+    q: 'A anamnese deve ser feita para:',
+    opts: ['Escolher o preço do serviço.','Avaliar histórico, alergias, pele e possíveis contraindicações.','Substituir a marcação.','Definir automaticamente a cor da henna.'],
+    correct: 1,
+    explain: 'A anamnese ajuda a atender com mais segurança.'
+  },
+  {
+    q: 'A cera fria deve ser evitada quando:',
+    opts: ['A pele está limpa e íntegra.','Há pelos fora da marcação.','A pele está irritada, lesionada, descamando ou sensibilizada.','A cliente deseja um atendimento mais rápido.'],
+    correct: 2,
+    explain: 'A cera pode agravar irritações ou causar lesões em pele sensibilizada.'
+  },
+  {
+    q: 'Antes de aplicar henna em uma cliente nova, é importante:',
+    opts: ['Orientar ou realizar teste de sensibilidade conforme o produto.','Aplicar uma camada bem escura para durar mais.','Ignorar alergias se a cliente quiser o procedimento.','Aplicar sem marcação para economizar tempo.'],
+    correct: 0,
+    explain: 'O teste reduz riscos de reação, especialmente em clientes com histórico de sensibilidade.'
+  },
+  {
+    q: 'Um erro comum na técnica com pinça é:',
+    opts: ['Remover apenas pelos fora da marcação.','Apoiar a pele durante a retirada.','Afinar demais tentando corrigir assimetrias.','Pentear os fios antes de começar.'],
+    correct: 2,
+    explain: 'Tentar igualar os lados retirando muitos fios pode criar falhas e deformar o desenho.'
+  },
+];
+
+const FINAL_QUESTIONS = [
+  { q: 'O design de sobrancelhas deve respeitar principalmente:', opts: ['A moda do momento.','A estrutura natural e harmonia do rosto.','Apenas a vontade da profissional.','Um único modelo padrão.'], correct: 1, explain: 'O design profissional é personalizado, considera proporção e respeita a estrutura natural.' },
+  { q: 'A anamnese serve para:', opts: ['Aumentar o preço.','Escolher a cor da roupa.','Avaliar histórico, cuidados e contraindicações.','Substituir a higienização.'], correct: 2, explain: 'A anamnese reduz riscos e garante atendimento seguro.' },
+  { q: 'Antes da henna, é importante:', opts: ['Ignorar alergias.','Fazer ou orientar teste de sensibilidade.','Aplicar sem marcação.','Molhar a pele.'], correct: 1, explain: 'O teste previne reações alérgicas e protege a cliente.' },
+  { q: 'A pinça deve retirar o pelo preferencialmente:', opts: ['Contra qualquer direção.','No sentido do crescimento.','Puxando vários fios juntos.','Sem apoiar a pele.'], correct: 1, explain: 'Reduz desconforto, evita quebra de fios e preserva a raiz.' },
+  { q: 'A cera fria não deve ser reaproveitada porque:', opts: ['Perde a cor.','Pode contaminar e comprometer a segurança.','Fica mais clara.','Aumenta a durabilidade.'], correct: 1, explain: 'Reutilizar cera transmite microrganismos e compromete a biossegurança.' },
+  { q: 'O ponto alto da sobrancelha é:', opts: ['O início.','A cauda.','A região de maior elevação.','A linha inferior.'], correct: 2, explain: 'O arco define a curvatura da sobrancelha e ancora o desenho.' },
+  { q: 'Sobrancelhas são consideradas:', opts: ['Sempre idênticas.','Irmãs, não gêmeas.','Iguais em todos os rostos.','Independentes do visagismo.'], correct: 1, explain: 'Cada rosto tem leve assimetria. Buscar equilíbrio visual é mais natural que cópia perfeita.' },
+  { q: 'A henna degradê busca:', opts: ['Deixar o início mais marcado.','Suavizar o início e definir o restante.','Escurecer toda a sobrancelha igualmente.','Remover pelos.'], correct: 1, explain: 'Evita início quadrado e entrega resultado mais elegante e natural.' },
+  { q: 'O corte dos fios deve ser feito:', opts: ['Em todas as clientes, sempre muito curto.','Apenas quando necessário.','Antes de avaliar os fios.','Sem pentear.'], correct: 1, explain: 'Cortar demais cria buracos e compromete o volume natural.' },
+  { q: 'Um bom atendimento inclui:', opts: ['Pressa e silêncio.','Explicação, escuta e orientação.','Promessas irreais.','Falta de anamnese.'], correct: 1, explain: 'Comunicação clara constrói confiança e fideliza a cliente.' },
+  { q: 'Pele com queimadura solar deve receber cera?', opts: ['Sim.','Não.','Apenas se for rápida.','Apenas com henna.'], correct: 1, explain: 'Pele queimada está sensibilizada; a cera pode agravar a lesão.' },
+  { q: 'A bancada deve estar:', opts: ['Cheia de objetos pessoais.','Limpa, organizada e com materiais separados.','Sem descartáveis.','Com produtos vencidos.'], correct: 1, explain: 'Organização transmite profissionalismo e evita improvisos.' },
+  { q: 'A cauda muito caída pode:', opts: ['Pesar a expressão.','Clarear a henna.','Aumentar o crescimento.','Substituir a pinça.'], correct: 0, explain: 'Cauda caída transmite cansaço ou tristeza no olhar.' },
+  { q: 'O início muito marcado na henna pode deixar o resultado:', opts: ['Mais natural.','Artificial.','Invisível.','Sem cor.'], correct: 1, explain: 'O excesso de pigmento no início pesa a expressão e fica artificial.' },
+  { q: 'Materiais descartáveis devem ser usados:', opts: ['Uma vez.','Em várias clientes.','Até acabar.','Apenas se estiverem manchados.'], correct: 0, explain: 'Reutilizar descartáveis é risco grave de contaminação cruzada.' },
+  { q: 'A precificação deve considerar:', opts: ['Apenas o valor da henna.','Material, tempo, despesas e lucro.','Somente o preço da concorrência.','Apenas a vontade da cliente.'], correct: 1, explain: 'Cobrar apenas pelo produto subvaloriza conhecimento e segurança.' },
+  { q: 'A foto de antes e depois deve ser feita:', opts: ['Sem autorização.','Com autorização da cliente.','Apenas escondida.','Sem cuidado de luz.'], correct: 1, explain: 'Imagem da cliente é dado pessoal; uso público sem autorização é antiético e ilegal.' },
+  { q: 'Quando há falha, a profissional deve:', opts: ['Afinar tudo.','Preservar fios e orientar recuperação.','Retirar mais pelos.','Ignorar a cliente.'], correct: 1, explain: 'Falhas precisam de tempo. Forçar correção pode piorar o quadro.' },
+  { q: 'O paquímetro ajuda a:', opts: ['Medir proporções.','Remover pelos.','Aplicar henna.','Substituir anamnese.'], correct: 0, explain: 'Auxilia a noção de simetria, mas não substitui a análise do rosto.' },
+  { q: 'O objetivo principal do curso é formar uma profissional:', opts: ['Rápida sem técnica.','Segura, cuidadosa e preparada.','Que copie modelos.','Que ignore biossegurança.'], correct: 1, explain: 'Técnica, segurança e responsabilidade são a base do design profissional.' },
+];
+
+function buildQuiz(containerId, questions, scoreId, scoreValueId, storageKey, scoreMetaId, mode) {
+  mode = mode || 'learning';
+  const ol = $(containerId);
+  const saved = store.get(storageKey) || {};
+  const isExam = mode === 'exam';
+
+  questions.forEach((q, i) => {
+    const question = q.q;
+    const options = q.opts;
+    const correctIdx = q.correct;
+    const explain = q.explain || '';
+    const li = document.createElement('li');
+    li.className = 'quiz-item' + (isExam ? ' quiz-item--exam' : '');
+    li.dataset.idx = i;
+    li.dataset.correct = correctIdx;
+
+    const actionsHTML = isExam ? '' : `
+      <div class="quiz-item__actions">
+        <button class="quiz-item__check" type="button">Verificar</button>
+        <span class="quiz-item__feedback"></span>
+      </div>`;
+
+    li.innerHTML = `
+      <p class="quiz-item__question">${question}</p>
+      <ul class="quiz-item__options">
+        ${options.map((opt, j) => `
+          <li><label data-idx="${j}">
+            <input type="radio" name="${storageKey}-q${i}" value="${j}">
+            <span>${opt}</span>
+          </label></li>
+        `).join('')}
+      </ul>
+      ${actionsHTML}
+      <div class="quiz-item__explain" hidden>
+        <p class="quiz-item__explain-label">Explicação</p>
+        <p>${explain}</p>
+      </div>
+    `;
+    ol.appendChild(li);
+
+    if (saved[i] !== undefined) {
+      const inp = li.querySelector(`input[value="${saved[i]}"]`);
+      if (inp) {
+        inp.checked = true;
+        li.querySelector(`label[data-idx="${saved[i]}"]`).classList.add('is-selected');
+      }
+    }
+
+    // Radio change — só salva e marca a seleção (sem feedback em exam)
+    li.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        const val = parseInt(inp.value);
+        saved[i] = val;
+        store.set(storageKey, saved);
+        li.querySelectorAll('label').forEach(l => l.classList.remove('is-selected'));
+        li.querySelector(`label[data-idx="${val}"]`).classList.add('is-selected');
+      });
+    });
+
+    // Verificar por questão (só learning mode)
+    if (!isExam) {
+      li.querySelector('.quiz-item__check').addEventListener('click', () => {
+        const selected = li.querySelector('input:checked');
+        if (!selected) { li.querySelector('.quiz-item__feedback').textContent = 'Selecione uma opção.'; return; }
+        const val = parseInt(selected.value);
+        saved[i] = val;
+        store.set(storageKey, saved);
+        li.querySelectorAll('label').forEach(l => l.classList.remove('is-correct'));
+        li.querySelector(`label[data-idx="${correctIdx}"]`).classList.add('is-correct');
+        li.classList.remove('is-correct','is-wrong');
+        if (val === correctIdx) {
+          li.classList.add('is-correct');
+          li.querySelector('.quiz-item__feedback').textContent = 'Correto.';
+        } else {
+          li.classList.add('is-wrong');
+          li.querySelector('.quiz-item__feedback').textContent = 'Revise — a correta está destacada.';
+        }
+        if (explain) li.querySelector('.quiz-item__explain').hidden = false;
+      });
+    }
+  });
+
+  // Estado "finalizado" — persistido pra retornar à apostila e ainda ver
+  const finishedKey = storageKey + '-finished';
+  if (store.get(finishedKey)) reveal();
+
+  // Botão único de encerrar / calcular
+  const finalBtn = document.createElement('button');
+  finalBtn.className = 'btn quiz-final-btn';
+  finalBtn.type = 'button';
+  finalBtn.textContent = isExam ? 'Encerrar avaliação' : 'Calcular nota final';
+  finalBtn.addEventListener('click', () => {
+    const unanswered = $$('.quiz-item', ol).filter(li => !li.querySelector('input:checked')).length;
+    if (isExam && unanswered > 0) {
+      if (!confirm(`Você deixou ${unanswered} questão(ões) sem resposta. Encerrar mesmo assim?`)) return;
+    }
+    store.set(finishedKey, true);
+    reveal();
+    setTimeout(() => $(scoreId).scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+  });
+
+  // Reset (só aparece após finalizar)
+  const resetBtn = document.createElement('button');
+  resetBtn.className = 'btn btn--ghost quiz-reset-btn';
+  resetBtn.type = 'button';
+  resetBtn.textContent = 'Refazer avaliação';
+  resetBtn.hidden = true;
+  resetBtn.addEventListener('click', () => {
+    if (!confirm('Limpar respostas e refazer a avaliação?')) return;
+    store.del(storageKey);
+    store.del(finishedKey);
+    location.reload();
+  });
+
+  ol.parentNode.insertBefore(finalBtn, $(scoreId));
+  ol.parentNode.insertBefore(resetBtn, $(scoreId));
+
+  function reveal() {
+    let correct = 0;
+    const total = questions.length;
+    $$('.quiz-item', ol).forEach((li, i) => {
+      const correctIdx = questions[i].correct;
+      const selected = li.querySelector('input:checked');
+      const val = selected ? parseInt(selected.value) : -1;
+      li.querySelectorAll('label').forEach(l => l.classList.remove('is-correct'));
+      li.querySelector(`label[data-idx="${correctIdx}"]`).classList.add('is-correct');
+      li.classList.remove('is-correct','is-wrong');
+      if (val === correctIdx) { li.classList.add('is-correct'); correct++; }
+      else if (val !== -1) li.classList.add('is-wrong');
+      if (questions[i].explain) li.querySelector('.quiz-item__explain').hidden = false;
+      // Desabilita inputs após finalizar
+      li.querySelectorAll('input').forEach(inp => inp.disabled = true);
+    });
+    const grade = (correct / total * 10).toFixed(1).replace('.0','');
+    const gradeNum = correct / total * 10;
+    let status, statusClass;
+    if (gradeNum >= 9) { status = 'Excelente'; statusClass = 'is-excellent'; }
+    else if (gradeNum >= 7) { status = 'Aprovada'; statusClass = 'is-passed'; }
+    else { status = 'Continue revisando'; statusClass = 'is-review'; }
+    $(scoreValueId).innerHTML = `<span class="quiz-score__num">${grade}</span><span class="quiz-score__total">/ 10</span>`;
+    if (scoreMetaId) {
+      $(scoreMetaId).innerHTML =
+        `<span class="quiz-score__detail">${correct} de ${total} acertos</span>` +
+        `<span class="quiz-score__status ${statusClass}">${status}</span>`;
+    }
+    $(scoreId).hidden = false;
+    finalBtn.hidden = true;
+    resetBtn.hidden = false;
+  }
+}
+
+function buildGabarito(containerId, questions) {
+  const grid = $(containerId);
+  questions.forEach((q, i) => {
+    const letter = String.fromCharCode(97 + q.correct);
+    const div = document.createElement('div');
+    div.className = 'gabarito-item';
+    div.innerHTML = `<span class="gabarito-item__num">${i+1}</span><span class="gabarito-item__ans">${letter}</span>`;
+    grid.appendChild(div);
+  });
+}
+
+/* ---- Módulos por tema ---- */
+const MODULES = [
+  {
+    id: 'mod-1',
+    eyebrow: 'Módulo 1',
+    title: 'Introdução ao design',
+    instructions: 'Leia as questões e marque a alternativa correta. Pense sempre no atendimento real: técnica, segurança e naturalidade.',
+    questions: [
+      { q: 'Qual é a principal diferença entre limpeza e design de sobrancelhas?',
+        opts: ['A limpeza usa henna e o design usa apenas pinça.',
+               'A limpeza remove todos os pelos finos e o design muda totalmente o formato.',
+               'A limpeza remove excessos aparentes; o design envolve análise, marcação e harmonia facial.',
+               'Não existe diferença entre limpeza e design.'],
+        correct: 2,
+        explain: 'O design é mais completo porque considera proporção, formato natural, rosto da cliente e acabamento.' },
+      { q: 'O principal objetivo de um bom design de sobrancelhas é:',
+        opts: ['Deixar todas as clientes com o mesmo formato.',
+               'Afinar ao máximo para abrir o olhar.',
+               'Valorizar o rosto respeitando a estrutura natural dos fios.',
+               'Copiar exatamente a sobrancelha de uma referência da internet.'],
+        correct: 2,
+        explain: 'O resultado profissional deve ser harmônico, possível e personalizado para cada cliente.' },
+      { q: 'Qual atitude demonstra postura profissional no atendimento?',
+        opts: ['Prometer que qualquer falha será corrigida na primeira sessão.',
+               'Explicar o procedimento, avaliar a cliente e alinhar expectativas.',
+               'Começar removendo os pelos antes de conversar com a cliente.',
+               'Aplicar henna em todas as clientes, mesmo sem necessidade.'],
+        correct: 1,
+        explain: 'A profissional deve orientar, avaliar e explicar antes de executar qualquer técnica.' },
+    ],
+    activity: {
+      title: 'Atividade prática',
+      intro: 'Observe três pessoas ou imagens de sobrancelhas diferentes. Para cada uma, responda:',
+      blockTitle: 'Análise',
+      blockCount: 3,
+      fields: [
+        { label: 'Nome ou imagem analisada', type: 'text' },
+        { label: 'A sobrancelha parece mais natural, fina, arqueada ou marcada?', type: 'textarea' },
+        { label: 'Há falhas visíveis?', type: 'textarea' },
+        { label: 'Você faria apenas limpeza ou um design completo? Por quê?', type: 'textarea' },
+      ],
+    },
+  },
+  {
+    id: 'mod-2',
+    eyebrow: 'Módulo 2',
+    title: 'Anatomia básica dos fios',
+    instructions: 'Responda pensando na estrutura da sobrancelha e no crescimento natural dos pelos.',
+    questions: [
+      { q: 'Quais são partes importantes da sobrancelha no design?',
+        opts: ['Início, corpo, arco e cauda.',
+               'Testa, nariz, boca e queixo.',
+               'Cílios, pálpebra, maçã do rosto e nariz.',
+               'Apenas início e final.'],
+        correct: 0,
+        explain: 'Essas partes ajudam a profissional a entender o desenho e fazer uma marcação mais segura.' },
+      { q: 'Por que é importante observar a direção dos fios antes de remover pelos?',
+        opts: ['Porque todos os fios crescem na mesma direção.',
+               'Porque a direção dos fios ajuda a preservar o desenho natural.',
+               'Porque a direção dos fios não interfere no resultado.',
+               'Porque fios para baixo devem sempre ser removidos.'],
+        correct: 1,
+        explain: 'Respeitar a direção natural evita falhas e ajuda no acabamento.' },
+      { q: 'Quando a cliente possui falhas, a profissional deve:',
+        opts: ['Afinar toda a sobrancelha para esconder a falha.',
+               'Retirar mais fios até igualar os dois lados.',
+               'Preservar fios importantes e orientar que a correção pode levar tempo.',
+               'Prometer crescimento rápido com henna.'],
+        correct: 2,
+        explain: 'Falhas precisam de cuidado e expectativa realista. A henna pode preencher visualmente, mas não faz o fio crescer.' },
+    ],
+    activity: {
+      title: 'Atividade prática',
+      intro: 'Observando a imagem da anatomia, identifique cada parte da sobrancelha analisada:',
+      image: 'imagens-apostila/03-anatomia-da-sobrancelha.png',
+      imageAlt: 'Anatomia da sobrancelha para identificação',
+      blockTitle: 'Identificação',
+      blockCount: 1,
+      fields: [
+        { label: 'Início', type: 'text' },
+        { label: 'Corpo', type: 'text' },
+        { label: 'Arco', type: 'text' },
+        { label: 'Cauda', type: 'text' },
+        { label: 'Área com maior volume', type: 'textarea' },
+        { label: 'Área com possível falha', type: 'textarea' },
+      ],
+    },
+  },
+];
+
+function buildModules() {
+  const root = $('#modulesRoot');
+  if (!root) return;
+
+  MODULES.forEach((mod) => {
+    const sec = document.createElement('div');
+    sec.className = 'module';
+    sec.id = mod.id;
+
+    const header = `
+      <p class="chapter__eyebrow">${mod.eyebrow}</p>
+      <h2 class="module__title">${mod.title}</h2>
+      <p class="module__instructions">${mod.instructions}</p>`;
+
+    sec.innerHTML = header + `<ol class="quiz"></ol>`;
+
+    const ol = sec.querySelector('ol');
+    const storageKey = 'quiz-' + mod.id;
+    const saved = store.get(storageKey) || {};
+
+    mod.questions.forEach((q, i) => {
+      const correctIdx = q.correct;
+      const li = document.createElement('li');
+      li.className = 'quiz-item';
+      li.dataset.idx = i;
+      li.innerHTML = `
+        <p class="quiz-item__question">${q.q}</p>
+        <ul class="quiz-item__options">
+          ${q.opts.map((opt, j) => `
+            <li><label data-idx="${j}">
+              <input type="radio" name="${storageKey}-q${i}" value="${j}">
+              <span>${opt}</span>
+            </label></li>
+          `).join('')}
+        </ul>
+        <div class="quiz-item__actions">
+          <button class="quiz-item__check">Verificar</button>
+          <span class="quiz-item__feedback"></span>
+        </div>
+        <div class="quiz-item__explain" hidden>
+          <p class="quiz-item__explain-label">Explicação</p>
+          <p>${q.explain}</p>
+        </div>`;
+      ol.appendChild(li);
+
+      if (saved[i] !== undefined) {
+        const inp = li.querySelector(`input[value="${saved[i]}"]`);
+        if (inp) { inp.checked = true; li.querySelector(`label[data-idx="${saved[i]}"]`).classList.add('is-selected'); }
+      }
+
+      li.querySelector('.quiz-item__check').addEventListener('click', () => {
+        const selected = li.querySelector('input:checked');
+        if (!selected) { li.querySelector('.quiz-item__feedback').textContent = 'Selecione uma opção.'; return; }
+        const val = parseInt(selected.value);
+        saved[i] = val;
+        store.set(storageKey, saved);
+        li.querySelectorAll('label').forEach(l => l.classList.remove('is-selected','is-correct'));
+        li.querySelector(`label[data-idx="${val}"]`).classList.add('is-selected');
+        li.querySelector(`label[data-idx="${correctIdx}"]`).classList.add('is-correct');
+        li.classList.remove('is-correct','is-wrong');
+        if (val === correctIdx) {
+          li.classList.add('is-correct');
+          li.querySelector('.quiz-item__feedback').textContent = 'Correto.';
+        } else {
+          li.classList.add('is-wrong');
+          li.querySelector('.quiz-item__feedback').textContent = 'Revise — a correta está destacada.';
+        }
+        li.querySelector('.quiz-item__explain').hidden = false;
+      });
+
+      li.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('change', () => {
+          li.querySelectorAll('label').forEach(l => l.classList.remove('is-selected'));
+          li.querySelector(`label[data-idx="${inp.value}"]`).classList.add('is-selected');
+        });
+      });
+    });
+
+    // Atividade
+    if (mod.activity) {
+      const act = document.createElement('div');
+      act.className = 'activity';
+      act.dataset.storage = 'activity-' + mod.id;
+
+      let imageHTML = '';
+      if (mod.activity.image) {
+        imageHTML = `<div class="activity__image"><img src="${mod.activity.image}" alt="${mod.activity.imageAlt || ''}" loading="lazy"></div>`;
+      }
+
+      let blocksHTML = '';
+      const count = mod.activity.blockCount || 1;
+      for (let b = 1; b <= count; b++) {
+        const blockTitle = count > 1 ? `${mod.activity.blockTitle} ${b}` : mod.activity.blockTitle;
+        const fields = mod.activity.fields.map((f, fi) => {
+          const fieldName = `b${b}_f${fi}`;
+          if (f.type === 'textarea') {
+            return `<div class="activity__field"><label>${f.label}</label><textarea name="${fieldName}" rows="2"></textarea></div>`;
+          }
+          return `<div class="activity__field"><label>${f.label}</label><input type="text" name="${fieldName}"></div>`;
+        }).join('');
+        blocksHTML += `<div class="activity__block"><p class="activity__block-title">${blockTitle}</p>${fields}</div>`;
+      }
+
+      act.innerHTML = `
+        <p class="activity__label">${mod.activity.title}</p>
+        <p class="activity__intro">${mod.activity.intro}</p>
+        ${imageHTML}
+        ${blocksHTML}`;
+      sec.appendChild(act);
+    }
+
+    root.appendChild(sec);
+  });
+
+  persistChecklists();
+}
+
+function setupMarcacao() {
+  const root = $('#marcacaoSteps');
+  if (root) {
+    // Persistência das etapas e respostas reflexivas é tratada via data-storage no HTML
+    persistChecklists();
+  }
+}
+
+/* ---- Navbar scroll state ---- */
+function navbarScroll() {
+  const navbar = $('.navbar');
+  const cover = $('.cover');
+  const update = () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('is-scrolled', y > 24);
+    if (cover) {
+      const rect = cover.getBoundingClientRect();
+      navbar.classList.toggle('is-on-cover', rect.bottom > 80);
+    }
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ---- Reveal on scroll ---- */
+function revealObserver() {
+  const targets = $$('article.chapter, section.appendix, section.part, .module');
+  targets.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+  targets.forEach(el => io.observe(el));
+}
+
+/* ---- Right rail mini-progress ---- */
+function buildRail() {
+  const rail = $('#rail');
+  if (!rail) return;
+  PARTS.forEach((p, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'rail__dot';
+    dot.dataset.target = 'parte-' + (i + 1);
+    dot.dataset.label = `Parte ${i + 1} — ${p.title}`;
+    dot.setAttribute('aria-label', dot.dataset.label);
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    rail.appendChild(dot);
+  });
+  // Apêndices como um único dot
+  const dot = document.createElement('button');
+  dot.className = 'rail__dot';
+  dot.dataset.target = 'apendices';
+  dot.dataset.label = 'Apêndices';
+  dot.setAttribute('aria-label', 'Apêndices');
+  dot.addEventListener('click', () => {
+    const t = document.getElementById('apendices');
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  rail.appendChild(dot);
+}
+
+function railScrollSpy() {
+  const rail = $('#rail');
+  const dots = $$('.rail__dot');
+  const sections = dots.map(d => document.getElementById(d.dataset.target)).filter(Boolean);
+  const update = () => {
+    const cover = $('.cover');
+    const onCover = cover && cover.getBoundingClientRect().bottom > 100;
+    rail.classList.toggle('is-visible', !onCover && window.scrollY > 300);
+    let activeIdx = 0;
+    sections.forEach((sec, i) => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.4) activeIdx = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ---- INIT ---- */
+document.addEventListener('DOMContentLoaded', () => {
+  buildSidebar();
+  buildTOC();
+  buildChapterNav();
+  updateProgress();
+  scrollSpy();
+  readingBar();
+  searchFilter();
+  themeToggle();
+  menuDrawer();
+  navbarScroll();
+  revealObserver();
+  buildRail();
+  railScrollSpy();
+  backToTop();
+  lightbox();
+  persistChecklists();
+  buildQuiz('#revisaoQuiz', REVISAO_QUESTIONS, '#revisaoScore', '#revisaoScoreValue', 'quiz-revisao', '#revisaoScoreMeta', 'exam');
+  buildQuiz('#finalQuiz', FINAL_QUESTIONS, '#finalScore', '#finalScoreValue', 'quiz-final', '#finalScoreMeta', 'exam');
+  buildGabarito('#gabaritoRevisao', REVISAO_QUESTIONS);
+  buildGabarito('#gabaritoFinal', FINAL_QUESTIONS);
+  buildModules();
+  setupMarcacao();
+});
+</script>
+
+</body>
+</html>
